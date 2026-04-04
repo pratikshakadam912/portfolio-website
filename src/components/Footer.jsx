@@ -45,7 +45,7 @@ const Footer = () => {
                     </a>
 
                     <a
-                        href="https://github.com/"
+                        href="https://github.com/pratikshakadam912"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="hover:text-gray-400 transition hover:scale-110"

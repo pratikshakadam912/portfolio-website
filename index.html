@@ -1,14 +1,42 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <!-- 🔤 FONTS -->
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <!-- ⚙️ META -->
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React</title>
+
+    <!-- 🌐 SEO BASIC -->
+    <meta name="description" content="Pratiksha Portfolio - Frontend Developer" />
+    <meta name="theme-color" content="#000000" />
+
+    <!-- 🖼️ ICON -->
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+
+    <!-- 🚀 TITLE -->
+    <title>Pratiksha | Portfolio</title>
   </head>
+
   <body>
+    <!-- 🔥 REACT ROOT -->
     <div id="root"></div>
+
+    <!-- ✨ OPTIONAL: CURSOR GLOW -->
+    <div class="cursor-glow" id="cursorGlow"></div>
+
+    <!-- ⚡ MAIN SCRIPT -->
     <script type="module" src="/src/main.jsx"></script>
+
+    <!-- 🎯 CURSOR FOLLOW SCRIPT -->
+    <script>
+      const glow = document.getElementById("cursorGlow");
+
+      document.addEventListener("mousemove", (e) => {
+        glow.style.left = e.clientX + "px";
+        glow.style.top = e.clientY + "px";
+      });
+    </script>
   </body>
 </html>

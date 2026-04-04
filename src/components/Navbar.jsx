@@ -5,42 +5,53 @@ import { FaBars, FaTimes, FaSun, FaMoon } from "react-icons/fa";
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
-
-    const [theme, setTheme] = useState(
-        localStorage.getItem("theme") || "dark"
-    );
+    const [theme, setTheme] = useState(localStorage.getItem("theme") || "dark");
+    const [scrolled, setScrolled] = useState(false);
 
     const navItems = ["home", "about", "projects", "contact"];
 
-    // THEME APPLY
+    // 🌙 THEME
     useEffect(() => {
-        const root = window.document.documentElement;
+        const root = document.documentElement;
 
-        if (theme === "dark") {
-            root.classList.add("dark");
-        } else {
-            root.classList.remove("dark");
-        }
+        theme === "dark"
+            ? root.classList.add("dark")
+            : root.classList.remove("dark");
 
         localStorage.setItem("theme", theme);
     }, [theme]);
 
+    // 🔥 SCROLL EFFECT
+    useEffect(() => {
+        const handleScroll = () => {
+            setScrolled(window.scrollY > 20);
+        };
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, []);
+
     return (
         <>
             {/* NAVBAR */}
-            <nav className="fixed top-0 left-0 right-0 w-full z-[9999] bg-white dark:bg-black shadow-md">
-
-                <div className="w-full max-w-7xl mx-auto flex justify-between items-center px-4 sm:px-6 py-4">
+            <nav
+                className={`fixed top-0 left-0 right-0 z-[9999] transition-all duration-300 
+                ${scrolled
+                        ? "bg-white/60 dark:bg-black/60 backdrop-blur-2xl shadow-lg border-b border-white/10"
+                        : "bg-transparent"
+                    }`}
+            >
+                <div className="max-w-7xl mx-auto flex justify-between items-center px-6 py-4">
 
                     {/* LOGO */}
-                    <h1 className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
-                        Pratiksha portfolio
+                    <h1 className="text-xl sm:text-2xl font-bold gradient-text cursor-pointer">
+                        Pratiksha
                     </h1>
 
                     {/* DESKTOP MENU */}
-                    <ul className="hidden md:flex gap-8 font-medium text-black dark:text-white">
+                    <ul className="hidden md:flex gap-6 font-medium">
+
                         {navItems.map((section) => (
-                            <li key={section} className="relative group cursor-pointer">
+                            <li key={section} className="relative group">
 
                                 <Link
                                     to={section}
@@ -48,31 +59,41 @@ const Navbar = () => {
                                     duration={500}
                                     offset={-70}
                                     spy={true}
-                                    activeClass="text-blue-500"
+                                    activeClass="active-nav"
+                                    className="px-4 py-1 rounded-full cursor-pointer transition"
                                 >
                                     {section.toUpperCase()}
                                 </Link>
 
-                                <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-gradient-to-r from-blue-500 to-purple-500 transition-all duration-300 group-hover:w-full"></span>
+                                {/* 💎 Animated glow pill */}
+                                <span className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-500/20 to-purple-500/20 opacity-0 group-hover:opacity-100 blur-md transition"></span>
                             </li>
                         ))}
+
                     </ul>
 
-                    {/* RIGHT SIDE */}
-                    <div className="flex items-center gap-4">
+                    {/* RIGHT */}
+                    <div className="flex items-center gap-3">
 
-                        {/* THEME */}
+                        {/* 🌙 THEME TOGGLE */}
                         <button
                             onClick={() =>
                                 setTheme(theme === "dark" ? "light" : "dark")
                             }
-                            className="text-lg sm:text-xl text-black dark:text-white"
+                            className="relative w-10 h-10 flex items-center justify-center rounded-full bg-white/10 dark:bg-white/10 backdrop-blur-md hover:scale-110 transition"
                         >
-                            {theme === "dark" ? <FaSun /> : <FaMoon />}
+                            <motion.div
+                                key={theme}
+                                initial={{ rotate: -180, scale: 0 }}
+                                animate={{ rotate: 0, scale: 1 }}
+                                transition={{ duration: 0.4 }}
+                            >
+                                {theme === "dark" ? <FaSun /> : <FaMoon />}
+                            </motion.div>
                         </button>
 
-                        {/* MOBILE MENU BUTTON */}
-                        <div className="md:hidden text-xl text-black dark:text-white">
+                        {/* MOBILE BTN */}
+                        <div className="md:hidden text-xl">
                             <button onClick={() => setIsOpen(true)}>
                                 <FaBars />
                             </button>
@@ -85,11 +106,11 @@ const Navbar = () => {
             <AnimatePresence>
                 {isOpen && (
                     <motion.div
-                        initial={{ x: "100%" }}
-                        animate={{ x: 0 }}
-                        exit={{ x: "100%" }}
+                        initial={{ opacity: 0, backdropFilter: "blur(0px)" }}
+                        animate={{ opacity: 1, backdropFilter: "blur(20px)" }}
+                        exit={{ opacity: 0 }}
                         transition={{ duration: 0.3 }}
-                        className="fixed top-0 right-0 w-full h-screen z-[9998] bg-white dark:bg-black flex flex-col items-center justify-center gap-8 text-lg text-black dark:text-white"
+                        className="fixed inset-0 z-[9998] bg-black/80 flex flex-col items-center justify-center gap-8 text-white"
                     >
                         {/* CLOSE */}
                         <button
@@ -100,20 +121,25 @@ const Navbar = () => {
                         </button>
 
                         {/* LINKS */}
-                        {navItems.map((section) => (
-                            <Link
+                        {navItems.map((section, i) => (
+                            <motion.div
                                 key={section}
-                                to={section}
-                                smooth={true}
-                                duration={500}
-                                offset={-70}
-                                spy={true}
-                                activeClass="text-blue-500"
-                                onClick={() => setIsOpen(false)}
-                                className="cursor-pointer hover:text-blue-400 text-2xl"
+                                initial={{ y: 40, opacity: 0 }}
+                                animate={{ y: 0, opacity: 1 }}
+                                transition={{ delay: i * 0.1 }}
                             >
-                                {section.toUpperCase()}
-                            </Link>
+                                <Link
+                                    to={section}
+                                    smooth={true}
+                                    duration={500}
+                                    offset={-70}
+                                    spy={true}
+                                    onClick={() => setIsOpen(false)}
+                                    className="text-2xl hover:text-blue-400 transition"
+                                >
+                                    {section.toUpperCase()}
+                                </Link>
+                            </motion.div>
                         ))}
                     </motion.div>
                 )}

@@ -51,7 +51,7 @@ const Contact = () => {
                     </h2>
 
                     <p className="text-gray-400 mb-6">
-                        I’m a <span className="text-blue-400">Front-End Developer</span>{" "}
+                        I’m a <span className="text-blue-400">Full-Stack Developer</span>{" "}
                         passionate about building modern web apps and integrating{" "}
                         <span className="text-purple-400">AI solutions</span>.
                     </p>
@@ -65,7 +65,7 @@ const Contact = () => {
                         <a href="https://www.linkedin.com/in/pratiksha-kadam-a639872a3" target="_blank" rel="noreferrer">
                             <FaLinkedin />
                         </a>
-                        <a href="https://github.com/" target="_blank" rel="noreferrer">
+                        <a href="https://github.com/pratikshakadam912" target="_blank" rel="noreferrer">
                             <FaGithub />
                         </a>
                         <a href="mailto:kadampratiksha869@gmail.com">

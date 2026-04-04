@@ -8,7 +8,17 @@ const Hero = () => {
     const [roleIndex, setRoleIndex] = useState(0);
     const [charIndex, setCharIndex] = useState(0);
 
-    // Typing Effect
+    // Cursor glow state
+    const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+
+    useEffect(() => {
+        const handleMouseMove = (e) => {
+            setMousePos({ x: e.clientX, y: e.clientY });
+        };
+        window.addEventListener("mousemove", handleMouseMove);
+        return () => window.removeEventListener("mousemove", handleMouseMove);
+    }, []);
+
     useEffect(() => {
         let typingTimeout;
 
@@ -16,7 +26,7 @@ const Hero = () => {
             typingTimeout = setTimeout(() => {
                 setText((prev) => prev + roles[roleIndex][charIndex]);
                 setCharIndex((prev) => prev + 1);
-            }, 80);
+            }, 50);
         } else {
             typingTimeout = setTimeout(() => {
                 setText("");
@@ -29,115 +39,88 @@ const Hero = () => {
     }, [charIndex, roleIndex]);
 
     return (
-        <section className="h-screen flex items-center justify-center 
-        bg-white text-black dark:bg-black dark:text-white 
-        relative overflow-hidden font-[Poppins]">
+        <section className="h-screen bg-black text-white flex items-center justify-center px-6 relative overflow-hidden">
 
-            {/* BACKGROUND GLOW */}
-            <motion.div
-                animate={{ x: [0, 60, 0], y: [0, 40, 0] }}
-                transition={{ repeat: Infinity, duration: 12 }}
-                className="absolute w-[300px] md:w-[400px] h-[300px] md:h-[400px] bg-blue-500 opacity-20 blur-[120px] top-10 left-10"
-            />
-            <motion.div
-                animate={{ x: [0, -60, 0], y: [0, -40, 0] }}
-                transition={{ repeat: Infinity, duration: 14 }}
-                className="absolute w-[250px] md:w-[300px] h-[250px] md:h-[300px] bg-purple-500 opacity-20 blur-[120px] bottom-10 right-10"
-            />
-
-            {/* CONTENT */}
-            <motion.div
-                initial="hidden"
-                animate="visible"
-                variants={{
-                    visible: { transition: { staggerChildren: 0.25 } },
+            {/* 🔥 CURSOR GLOW */}
+            <div
+                className="pointer-events-none fixed w-[300px] h-[300px] rounded-full bg-purple-500/20 blur-3xl"
+                style={{
+                    left: mousePos.x - 150,
+                    top: mousePos.y - 150,
                 }}
-                className="relative z-10 text-center px-4"
-            >
+            />
 
-                {/* I'M TEXT */}
-                <motion.h1
-                    variants={{
-                        hidden: { opacity: 0, y: -30 },
-                        visible: { opacity: 1, y: 0 },
-                    }}
-                    className="text-3xl md:text-5xl text-gray-500 dark:text-gray-400 mb-2"
-                >
-                    I'm
-                </motion.h1>
+            {/* SUBTLE GRID */}
+            <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle,white_1px,transparent_1px)] [background-size:40px_40px]" />
 
-                {/* NAME */}
-                <motion.h1
-                    variants={{
-                        hidden: { opacity: 0, scale: 0.85 },
-                        visible: { opacity: 1, scale: 1 },
-                    }}
-                    animate={{ x: [0, -2, 2, -1, 1, 0] }}
-                    transition={{ duration: 0.6, delay: 0.3 }}
-                    className="text-5xl md:text-8xl font-bold font-[Orbitron] gradient-text glitch"
-                >
-                    Pratiksha
-                </motion.h1>
+            {/* SOFT GRADIENT LIGHT */}
+            <div className="absolute w-[500px] h-[500px] bg-blue-600/20 blur-[120px] top-[-150px] left-[-150px]" />
 
-                {/* ROLE TEXT */}
-                <motion.p
-                    variants={{
-                        hidden: { opacity: 0 },
-                        visible: { opacity: 1 },
-                    }}
-                    className="text-lg md:text-2xl text-gray-500 dark:text-gray-400 mt-4 h-[32px]"
-                >
-                    {text}
-                    <span className="animate-pulse">|</span>
-                </motion.p>
+            <div className="grid md:grid-cols-2 gap-12 items-center max-w-6xl w-full z-10">
 
-                {/* BUTTONS */}
-                <motion.div
-                    variants={{
-                        hidden: { opacity: 0, y: 20 },
-                        visible: { opacity: 1, y: 0 },
-                    }}
-                    className="flex flex-col md:flex-row gap-4 justify-center mt-8"
-                >
+                {/* LEFT */}
+                <div>
+                    <p className="text-gray-400 mb-3 tracking-wide">
+                        👋 Hey, I'm
+                    </p>
 
-                    <button
-                        onClick={() => {
-                            const section = document.getElementById("projects");
-                            if (section) {
-                                section.scrollIntoView({ behavior: "smooth" });
-                            }
-                        }}
-                        className="px-6 py-3 rounded-lg 
-  bg-gradient-to-r from-blue-500 to-purple-500 
-  hover:scale-110 transition duration-300">
-                        View Projects
-                    </button>
+                    <h1 className="text-5xl md:text-7xl font-bold leading-tight">
+                        <span className="bg-gradient-to-r from-blue-400 to-purple-500 text-transparent bg-clip-text">
+                            Pratiksha
+                        </span>
+                        <br />
+                        <span className="text-white">Kadam</span>
+                    </h1>
 
-                    <button
-                        onClick={() => {
-                            const section = document.getElementById("contact");
-                            if (section) {
-                                section.scrollIntoView({ behavior: "smooth" });
-                            }
-                        }}
-                        className="px-6 py-3 rounded-lg 
-  border border-gray-400 
-  hover:scale-110 transition duration-300">
-                        Contact Me
-                    </button>
+                    <p className="text-xl text-gray-400 mt-4 h-[30px]">
+                        {text}
+                        <span className="animate-pulse">|</span>
+                    </p>
 
-                </motion.div>
+                    <p className="mt-4 text-gray-500 max-w-md">
+                        I build modern, scalable web apps and explore AI to create impactful digital experiences.
+                    </p>
 
-                {/* SCROLL */}
-                <motion.div
-                    animate={{ y: [0, 12, 0] }}
-                    transition={{ repeat: Infinity, duration: 1.4 }}
-                    className="mt-16 text-gray-500 text-sm"
-                >
-                    ↓ Scroll Down
-                </motion.div>
+                    {/* BUTTONS (UNCHANGED) */}
+                    <div className="flex gap-4 mt-8">
 
-            </motion.div>
+                        <motion.button
+                            whileHover={{ scale: 1.05 }}
+                            className="px-6 py-3 rounded-xl bg-gradient-to-r from-blue-500 to-purple-500 shadow-lg"
+                            onClick={() => document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })}
+                        >
+                            View Work
+                        </motion.button>
+
+                        <motion.button
+                            whileHover={{ scale: 1.05 }}
+                            className="px-6 py-3 rounded-xl border border-gray-600 hover:bg-white hover:text-black transition"
+                            onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
+                        >
+                            Contact
+                        </motion.button>
+                    </div>
+                </div>
+
+                {/* RIGHT */}
+                <div className="relative flex justify-center">
+
+                    <motion.div
+                        animate={{ y: [0, -15, 0] }}
+                        transition={{ repeat: Infinity, duration: 5 }}
+                        className="bg-white/5 backdrop-blur-xl border border-white/10 p-6 rounded-2xl shadow-xl"
+                    >
+                        <pre className="text-green-400 text-sm">
+                            {`const developer = {
+  name: "Pratiksha",
+  focus: ["React", "AI"],
+  goal: "Clean + Creative UI"
+};`}
+                        </pre>
+                    </motion.div>
+
+                </div>
+            </div>
         </section>
     );
 };
