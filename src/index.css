@@ -1,0 +1,177 @@
+@import "tailwindcss";
+
+/* ===== GLOBAL ===== */
+html {
+    scroll-behavior: smooth;
+}
+
+/* 🌐 THEME VARIABLES */
+:root {
+    --bg-color: #ffffff;
+    --text-color: #000000;
+}
+
+.dark {
+    --bg-color: #000000;
+    --text-color: #ffffff;
+}
+
+/* APPLY GLOBAL THEME */
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    overflow-x: hidden;
+    transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+/* ===== PREMIUM NAME (GRADIENT FIXED) ===== */
+.gradient-text {
+    background: linear-gradient(270deg, #3b82f6, #8b5cf6, #ec4899);
+    background-size: 600% 600%;
+    animation: gradientMove 6s ease infinite;
+
+    /* 🔥 prevent override from global color */
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    /* 💎 premium glow */
+    filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.4)) drop-shadow(0 0 20px rgba(139, 92, 246, 0.3));
+}
+
+/* Hover effect */
+.gradient-text:hover {
+    filter: drop-shadow(0 0 20px rgba(59, 130, 246, 0.8)) drop-shadow(0 0 40px rgba(236, 72, 153, 0.6));
+    transform: scale(1.05);
+    transition: 0.3s ease;
+}
+
+/* Animation */
+@keyframes gradientMove {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* ===== GLITCH EFFECT (THEME AWARE) ===== */
+.glitch {
+    position: relative;
+    display: inline-block;
+    letter-spacing: 2px;
+}
+
+:not(.dark) .glitch {
+    color: black;
+}
+
+.dark .glitch {
+    color: white;
+}
+
+.glitch::before {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 2px;
+    color: #3b82f6;
+    opacity: 0.8;
+    z-index: -1;
+    animation: glitchTop 1s infinite linear alternate-reverse;
+}
+
+.glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: -2px;
+    color: #99647f;
+    opacity: 0.8;
+    z-index: -2;
+    animation: glitchBottom 1s infinite linear alternate-reverse;
+}
+
+@keyframes glitchTop {
+    0% {
+        transform: translate(0, 0);
+    }
+
+    50% {
+        transform: translate(-2px, 2px);
+    }
+
+    100% {
+        transform: translate(2px, -2px);
+    }
+}
+
+@keyframes glitchBottom {
+    0% {
+        transform: translate(0, 0);
+    }
+
+    50% {
+        transform: translate(2px, -2px);
+    }
+
+    100% {
+        transform: translate(-2px, 2px);
+    }
+}
+
+/* ===== CURSOR GLOW ===== */
+.cursor-glow {
+    position: fixed;
+    width: 180px;
+    height: 180px;
+    background: radial-gradient(circle, rgba(59, 130, 246, 0.25) 0%, transparent 70%);
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    z-index: 0;
+}
+
+/* ===== 3D EFFECT ===== */
+.perspective {
+    perspective: 1000px;
+}
+
+.transform-gpu {
+    transform-style: preserve-3d;
+}
+
+/* 📱 Mobile fix */
+@media (max-width: 768px) {
+    .perspective div {
+        transform: none !important;
+    }
+}
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(to bottom, #3b82f6, #8b5cf6);
+    border-radius: 10px;
+}
+
+/* ===== SMOOTH UI ===== */
+* {
+    transition: background-color 0.3s ease,
+        color 0.3s ease,
+        border-color 0.3s ease,
+        transform 0.2s ease;
+}
+
+html,
+body {
+    overflow-x: hidden;
+}
