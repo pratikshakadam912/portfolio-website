@@ -107,7 +107,7 @@ const Navbar = () => {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: "100%" }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-[9998] bg-black/80 flex flex-col items-center justify-center gap-8 text-white"
+            className="fixed inset-0 z-[9998] bg-black/95 backdrop-blur-xl flex flex-col items-center justify-center gap-8 text-white px-6"
           >
             {/* CLOSE */}
             <button
