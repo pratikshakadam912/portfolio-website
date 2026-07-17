@@ -25,7 +25,18 @@ function CursorGlow() {
 
 function App() {
   return (
-    <div className="bg-black text-white font-[Poppins]">
+    <div
+      className="
+    min-h-screen
+    font-[Poppins]
+    bg-white
+    text-gray-900
+    transition-colors
+    duration-500
+    dark:bg-black
+    dark:text-white
+  "
+    >
       <CursorGlow />
       <Home />
     </div>

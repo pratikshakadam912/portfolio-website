@@ -133,14 +133,6 @@ const Navbar = () => {
             transition={{ duration: 0.3 }}
             className="fixed inset-0 z-[9998] bg-black/95 backdrop-blur-xl flex flex-col items-center justify-center gap-8 text-white px-6"
           >
-            {/* CLOSE */}
-            <button
-              className="absolute top-5 right-5 w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-xl"
-              onClick={() => setIsOpen(false)}
-            >
-              <FaTimes />
-            </button>
-
             {/* LINKS */}
             {navItems.map((section, i) => (
               <motion.div
