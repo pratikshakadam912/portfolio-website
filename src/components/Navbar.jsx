@@ -43,7 +43,7 @@ const Navbar = () => {
       >
         <div className="max-w-7xl mx-auto flex justify-between items-center px-4 sm:px-6 lg:px-8 py-4">
           {/* LOGO */}
-          <h1 className="text-xl sm:text-2xl font-bold gradient-text cursor-pointer">
+          <h1 className="text-lg sm:text-xl md:text-2xl font-bold gradient-text cursor-pointer">
             Pratiksha
           </h1>
 
@@ -87,9 +87,12 @@ const Navbar = () => {
             </button>
 
             {/* MOBILE BTN */}
-            <div className="md:hidden text-xl">
-              <button onClick={() => setIsOpen(true)}>
-                <FaBars />
+            <div className="md:hidden">
+              <button
+                onClick={() => setIsOpen(true)}
+                className="w-10 h-10 flex items-center justify-center rounded-lg bg-white/10 backdrop-blur-md"
+              >
+                <FaBars className="text-xl" />
               </button>
             </div>
           </div>
