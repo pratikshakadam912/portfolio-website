@@ -52,7 +52,7 @@ const Hero = () => {
   }, [charIndex, roleIndex]);
 
   return (
-    <section className="relative min-h-screen bg-black text-white overflow-hidden flex items-center justify-center px-4 sm:px-6 lg:px-8 pt-28 pb-16 sm:py-20">
+    <section className="relative min-h-screen bg-white dark:bg-black text-gray-900 dark:text-white overflow-hidden flex items-center justify-center px-4 sm:px-6 lg:px-8 pt-28 pb-16 sm:py-20 transition-colors duration-500">
       {/* Cursor Glow */}
       <div
         className="hidden md:block pointer-events-none fixed w-[320px] h-[320px] rounded-full bg-purple-500/20 blur-[120px]"
@@ -63,11 +63,11 @@ const Hero = () => {
       />
 
       {/* Grid */}
-      <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle,white_1px,transparent_1px)] [background-size:40px_40px]" />
+      <div className="absolute inset-0 opacity-20 dark:opacity-10 bg-[radial-gradient(circle,#f9a8d4_1px,transparent_1px)] dark:bg-[radial-gradient(circle,white_1px,transparent_1px)] [background-size:40px_40px]" />
 
       {/* Lights */}
-      <div className="absolute top-[-150px] left-[-120px] w-[450px] h-[450px] bg-blue-600/20 blur-[140px]" />
-      <div className="absolute bottom-[-150px] right-[-120px] w-[450px] h-[450px] bg-purple-600/20 blur-[140px]" />
+      <div className="absolute top-[-150px] left-[-120px] w-[450px] h-[450px] bg-pink-300/30 dark:bg-blue-600/20 blur-[140px]" />
+      <div className="absolute bottom-[-150px] right-[-120px] w-[450px] h-[450px] bg-violet-300/30 dark:bg-purple-600/20 blur-[140px]" />
 
       <div className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center z-10">
         {/* LEFT */}
