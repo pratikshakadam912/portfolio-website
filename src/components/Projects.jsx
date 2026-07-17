@@ -31,8 +31,7 @@ const projects = [
     category: "Full Stack",
     github: "#",
     live: "#",
-    image:
-      "https://images.unsplash.com/photo-1587614382346-4ec70e388b28",
+    image: "https://images.unsplash.com/photo-1587614382346-4ec70e388b28",
   },
 ];
 
@@ -40,7 +39,7 @@ const Projects = () => {
   return (
     <section
       id="projects"
-      className="min-h-screen bg-black text-white px-6 py-20"
+      className="min-h-screen bg-black text-white px-5 sm:px-8 lg:px-12 py-20"
     >
       <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 gradient-text">
         Projects
@@ -55,12 +54,6 @@ const Projects = () => {
   );
 };
 
-export default Projects;
-
-
-
-
-
 /* ================= CARD ================= */
 
 const Card = ({ proj, index }) => {
@@ -68,6 +61,7 @@ const Card = ({ proj, index }) => {
 
   // ⚡ FLOAT + MAGNETIC EFFECT
   const handleMouseMove = (e) => {
+    if (window.innerWidth < 768) return;
     const card = ref.current;
     const rect = card.getBoundingClientRect();
 
@@ -116,7 +110,7 @@ const Card = ({ proj, index }) => {
       </div>
 
       {/* IMAGE */}
-      <div className="h-48 overflow-hidden">
+      <div className="h-52 sm:h-56 overflow-hidden">
         <img
           src={proj.image}
           alt={proj.title}
@@ -130,20 +124,16 @@ const Card = ({ proj, index }) => {
           {proj.category}
         </span>
 
-        <h3 className="text-xl font-semibold mt-3 mb-2">
-          {proj.title}
-        </h3>
+        <h3 className="text-xl font-semibold mt-3 mb-2">{proj.title}</h3>
 
-        <p className="text-gray-400 text-sm mb-4 flex-grow">
-          {proj.desc}
-        </p>
+        <p className="text-gray-400 text-sm mb-4 flex-grow">{proj.desc}</p>
 
         {/* TECH */}
         <div className="flex flex-wrap gap-2 mb-4">
           {proj.tech.map((t, i) => (
             <span
               key={i}
-              className="text-xs bg-gray-800 px-2 py-1 rounded"
+              className="text-xs bg-white/10 border border-white/10 px-3 py-1 rounded-full"
             >
               {t}
             </span>
@@ -174,3 +164,5 @@ const Card = ({ proj, index }) => {
     </motion.div>
   );
 };
+
+export default Projects;
