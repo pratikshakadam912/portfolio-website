@@ -31,17 +31,10 @@ const Navbar = () => {
   }, []);
 
   useEffect(() => {
-    const handlePopState = () => {
-      setIsOpen(false);
-    };
-
-    if (isOpen) {
-      window.history.pushState({ menu: true }, "");
-      window.addEventListener("popstate", handlePopState);
-    }
+    document.body.style.overflow = isOpen ? "hidden" : "auto";
 
     return () => {
-      window.removeEventListener("popstate", handlePopState);
+      document.body.style.overflow = "auto";
     };
   }, [isOpen]);
 
@@ -116,10 +109,14 @@ const Navbar = () => {
             {/* MOBILE BTN */}
             <div className="md:hidden">
               <button
-                onClick={() => setIsOpen(true)}
-                className="w-10 h-10 flex items-center justify-center rounded-lg bg-white/10 backdrop-blur-md"
+                onClick={() => setIsOpen(!isOpen)}
+                className="w-10 h-10 flex items-center justify-center rounded-lg bg-white/10 backdrop-blur-md transition"
               >
-                <FaBars className="text-xl" />
+                {isOpen ? (
+                  <FaTimes className="text-xl" />
+                ) : (
+                  <FaBars className="text-xl" />
+                )}
               </button>
             </div>
           </div>
