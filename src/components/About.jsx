@@ -21,67 +21,23 @@ import {
 
 const skillsData = {
   frontend: [
-    {
-      name: "HTML5",
-      level: 95,
-      icon: <FaHtml5 />,
-    },
-    {
-      name: "CSS3",
-      level: 90,
-      icon: <FaCss3Alt />,
-    },
-    {
-      name: "JavaScript",
-      level: 88,
-      icon: <FaJs />,
-    },
-    {
-      name: "React",
-      level: 90,
-      icon: <FaReact />,
-    },
-    {
-      name: "Tailwind CSS",
-      level: 88,
-      icon: <SiTailwindcss />,
-    },
+    { name: "HTML5", level: 95, icon: <FaHtml5 /> },
+    { name: "React", level: 90, icon: <FaReact /> },
+    { name: "JavaScript", level: 88, icon: <FaJs /> },
+    { name: "CSS3", level: 90, icon: <FaCss3Alt /> },
+    { name: "Tailwind CSS", level: 88, icon: <SiTailwindcss /> },
   ],
 
   backend: [
-    {
-      name: "Node.js",
-      level: 82,
-      icon: <FaNodeJs />,
-    },
-    {
-      name: "Express.js",
-      level: 80,
-      icon: <SiExpress />,
-    },
-    {
-      name: "MongoDB",
-      level: 78,
-      icon: <SiMongodb />,
-    },
-    {
-      name: "PostgreSQL",
-      level: 72,
-      icon: <SiPostgresql />,
-    },
+    { name: "Node.js", level: 82, icon: <FaNodeJs /> },
+    { name: "Express.js", level: 80, icon: <SiExpress /> },
+    { name: "MongoDB", level: 78, icon: <SiMongodb /> },
+    { name: "PostgreSQL", level: 72, icon: <SiPostgresql /> },
   ],
 
   ai: [
-    {
-      name: "Python",
-      level: 80,
-      icon: <FaPython />,
-    },
-    {
-      name: "Machine Learning",
-      level: 70,
-      icon: <SiScikitlearn />,
-    },
+    { name: "Python", level: 80, icon: <FaPython /> },
+    { name: "Machine Learning", level: 70, icon: <SiScikitlearn /> },
   ],
 };
 
