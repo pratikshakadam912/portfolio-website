@@ -36,7 +36,7 @@ const Footer = () => {
                 {/* RIGHT - SOCIAL */}
                 <div className="flex gap-5 text-xl">
                     <a
-                        href="https://www.linkedin.com/in/pratiksha-kadam-a639872a3"
+                        href="https://www.linkedin.com/in/pratiksha-kadam-a639872a3?utm_source=share_via&utm_content=profile&utm_medium=member_android"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="hover:text-blue-400 transition hover:scale-110"

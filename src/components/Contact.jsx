@@ -62,7 +62,7 @@ const Contact = () => {
                     </p>
 
                     <div className="flex gap-6 text-2xl">
-                        <a href="https://www.linkedin.com/in/pratiksha-kadam-a639872a3" target="_blank" rel="noreferrer">
+                        <a href="https://www.linkedin.com/in/pratiksha-kadam-a639872a3?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" rel="noreferrer">
                             <FaLinkedin />
                         </a>
                         <a href="https://github.com/pratikshakadam912" target="_blank" rel="noreferrer">
