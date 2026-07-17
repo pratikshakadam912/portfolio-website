@@ -3,8 +3,8 @@ import { motion } from "framer-motion";
 import { FaGithub, FaExternalLinkAlt } from "react-icons/fa";
 
 import websiteImg from "../assets/website.png";
-import weatherImg from "../assets/weather.png";
-import resumeImg from "../assets/resume.png";
+import weatherImg from "../assets/weather.jpeg";
+import resumeImg from "../assets/resume.jpeg";
 
 const projects = [
   {
