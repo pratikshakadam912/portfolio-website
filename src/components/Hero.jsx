@@ -70,7 +70,7 @@ const Hero = () => {
 
       <div className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center z-10">
         {/* LEFT */}
-        <div className="text-center lg:text-left order-2 lg:order-1">
+        <div className="text-center lg:text-left">
           <motion.div
             initial={{ opacity: 0, y: -15 }}
             animate={{ opacity: 1, y: 0 }}
@@ -129,47 +129,55 @@ const Hero = () => {
 
           {/* Buttons */}
 
-          <div className="flex flex-col sm:flex-row gap-4 mt-10 justify-center lg:justify-start">
+          <div className="flex flex-col sm:flex-row flex-wrap gap-4 mt-10 justify-center lg:justify-start">
+            {/* Projects */}
             <motion.button
-              whileHover={{ scale: 1.05 }}
+              whileHover={{ scale: 1.05, y: -3 }}
               whileTap={{ scale: 0.95 }}
-              className="w-full sm:w-auto px-7 py-3 rounded-xl bg-gradient-to-r from-blue-500 to-purple-500 shadow-xl"
               onClick={() =>
-                document.getElementById("projects")?.scrollIntoView({
-                  behavior: "smooth",
-                })
+                document
+                  .getElementById("projects")
+                  ?.scrollIntoView({ behavior: "smooth" })
               }
+              className="group relative overflow-hidden rounded-2xl px-8 py-4 bg-gradient-to-r from-blue-500 via-cyan-500 to-purple-600 text-white font-semibold shadow-lg shadow-blue-500/30 transition-all duration-300 w-full sm:w-auto"
             >
-              View Projects
+              <span className="relative z-10 flex items-center justify-center gap-2">
+                🚀 View Projects
+              </span>
+
+              <span className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition duration-300"></span>
             </motion.button>
 
+            {/* Resume */}
             <motion.a
-              whileHover={{ scale: 1.05 }}
+              whileHover={{ scale: 1.05, y: -3 }}
               whileTap={{ scale: 0.95 }}
               href="/resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full sm:w-auto px-7 py-3 rounded-xl border border-gray-600 hover:bg-white hover:text-black transition text-center"
+              className="group rounded-2xl px-8 py-4 border border-white/20 bg-white/5 backdrop-blur-lg hover:bg-white hover:text-black text-white font-semibold transition-all duration-300 shadow-lg w-full sm:w-auto flex items-center justify-center gap-2"
             >
-              Resume
+              📄 Resume
             </motion.a>
 
+            {/* Contact */}
             <motion.button
-              whileHover={{ scale: 1.05 }}
+              whileHover={{ scale: 1.05, y: -3 }}
               whileTap={{ scale: 0.95 }}
-              className="w-full sm:w-auto px-7 py-3 rounded-xl border border-gray-600 hover:border-blue-400 transition"
               onClick={() =>
-                document.getElementById("contact")?.scrollIntoView({
-                  behavior: "smooth",
-                })
+                document
+                  .getElementById("contact")
+                  ?.scrollIntoView({ behavior: "smooth" })
               }
+              className="group rounded-2xl px-8 py-4 border border-blue-500/40 bg-blue-500/10 hover:bg-blue-500 hover:text-white text-blue-300 font-semibold transition-all duration-300 shadow-lg shadow-blue-500/20 w-full sm:w-auto"
             >
-              Contact
+              ✉ Contact Me
             </motion.button>
           </div>
         </div>
         {/* RIGHT */}
-        <div className="flex justify-center order-1 lg:order-2">
+        {/* RIGHT */}
+        <div className="flex justify-center mt-12 lg:mt-0">
           <motion.div
             animate={{
               y: [0, -15, 0],
