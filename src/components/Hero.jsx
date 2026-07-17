@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { FiArrowRight, FiDownload, FiMail } from "react-icons/fi";
 
 const roles = [
   "Full Stack Developer",
