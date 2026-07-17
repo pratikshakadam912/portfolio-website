@@ -43,10 +43,14 @@ const skillsData = {
 const About = () => {
   const [activeTab, setActiveTab] = useState("frontend");
 
+  const progressColor = document.documentElement.classList.contains("dark")
+    ? "#60A5FA"
+    : "#EC4899";
+
   return (
     <section
       id="about"
-      className="min-h-screen flex flex-col justify-center items-center bg-black text-white px-5 sm:px-6 lg:px-8 py-20"
+      className="min-h-screen flex flex-col justify-center items-center bg-pink-50 dark:bg-black text-gray-900 dark:text-white px-5 sm:px-6 lg:px-8 py-20 transition-colors duration-500"
     >
       {/* Heading */}
 
@@ -61,19 +65,19 @@ const About = () => {
 
       {/* Description */}
 
-      <p className="max-w-3xl text-center text-gray-400 text-sm sm:text-base lg:text-lg leading-7 sm:leading-8 mb-6 px-2">
+      <p className="max-w-3xl text-center text-gray-600 dark:text-gray-400 text-sm sm:text-base lg:text-lg leading-7 sm:leading-8 mb-6 px-2">
         I'm an{" "}
-        <span className="text-blue-400 font-semibold">
+        <span className="text-pink-500 dark:text-blue-400 font-semibold">
           Full Stack Developer
         </span>{" "}
         who builds scalable web applications and loves integrating{" "}
-        <span className="text-purple-400 font-semibold">
+        <span className="text-fuchsia-500 dark:text-purple-400 font-semibold">
           AI & Machine Learning
         </span>{" "}
         to create smarter digital experiences.
       </p>
 
-      <p className="text-gray-500 text-center max-w-2xl text-sm sm:text-base mb-10 px-2">
+      <p className="text-gray-600 dark:text-gray-500 text-center max-w-2xl text-sm sm:text-base mb-10 px-2">
         I work across frontend and backend technologies and I'm currently
         exploring Machine Learning to combine intelligent systems with modern
         web development.
@@ -86,10 +90,10 @@ const About = () => {
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
-            className={`px-5 sm:px-6 py-2.5 sm:py-3 rounded-full border transition text-sm sm:text-base ${
+            className={`px-5 sm:px-6 py-2.5 sm:py-3 rounded-full border transition text-sm sm:text-base font-medium ${
               activeTab === tab
-                ? "bg-blue-500 text-white border-blue-500"
-                : "border-gray-600 text-gray-400 hover:border-blue-500"
+                ? "bg-gradient-to-r from-pink-500 to-fuchsia-500 dark:from-blue-500 dark:to-purple-600 text-white border-transparent"
+                : "bg-white dark:bg-transparent border-pink-200 dark:border-gray-600 text-gray-700 dark:text-gray-400 hover:border-pink-500 dark:hover:border-blue-500"
             }`}
           >
             {tab === "ai" ? "AI / ML" : tab.toUpperCase()}
@@ -114,9 +118,8 @@ const About = () => {
               transition={{ delay: index * 0.2 }}
               className="flex flex-col items-center"
             >
-              {/* Continue in Part 2 */}
+              {/* Circle */}
 
-              {/* CIRCLE PROGRESS */}
               <div className="relative w-24 h-24 sm:w-28 sm:h-28 flex items-center justify-center">
                 <svg
                   className="absolute w-full h-full rotate-[-90deg]"
@@ -126,7 +129,7 @@ const About = () => {
                     cx="50%"
                     cy="50%"
                     r={radius}
-                    stroke="#333"
+                    stroke="#d1d5db"
                     strokeWidth="6"
                     fill="transparent"
                   />
@@ -135,7 +138,7 @@ const About = () => {
                     cx="50%"
                     cy="50%"
                     r={radius}
-                    stroke="#3b82f6"
+                    stroke={progressColor}
                     strokeWidth="6"
                     fill="transparent"
                     strokeLinecap="round"
@@ -150,17 +153,21 @@ const About = () => {
                   />
                 </svg>
 
-                {/* ICON */}
-                <div className="text-2xl sm:text-3xl z-10">{skill.icon}</div>
+                {/* Icon */}
+                <div className="text-2xl sm:text-3xl z-10 text-pink-500 dark:text-blue-400">
+                  {skill.icon}
+                </div>
               </div>
 
-              {/* NAME */}
-              <p className="mt-3 text-sm sm:text-base text-gray-300 text-center">
+              {/* Skill Name */}
+              <p className="mt-3 text-sm sm:text-base text-gray-700 dark:text-gray-300 text-center">
                 {skill.name}
               </p>
 
-              {/* PERCENT */}
-              <p className="text-xs sm:text-sm text-blue-400">{skill.level}%</p>
+              {/* Percentage */}
+              <p className="text-xs sm:text-sm text-pink-500 dark:text-blue-400 font-medium">
+                {skill.level}%
+              </p>
             </motion.div>
           );
         })}
