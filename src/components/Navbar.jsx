@@ -111,7 +111,7 @@ const Navbar = () => {
           >
             {/* CLOSE */}
             <button
-              className="absolute top-6 right-6 text-2xl"
+              className="absolute top-5 right-5 w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-xl"
               onClick={() => setIsOpen(false)}
             >
               <FaTimes />
