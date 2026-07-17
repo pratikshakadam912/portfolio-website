@@ -3,38 +3,40 @@ import { motion } from "framer-motion";
 import { FaGithub, FaExternalLinkAlt } from "react-icons/fa";
 
 import websiteImg from "../assets/website.png";
-import portfolioImg from "../assets/portfolio.png";
+import weatherImg from "../assets/weather.png";
+import resumeImg from "../assets/resume.png";
 
 const projects = [
   {
     title: "Euphoria E-Commerce",
-    desc: "Full-stack e-commerce platform with authentication, cart, checkout, and payment integration.",
+    desc: "A full-stack fashion e-commerce platform with secure authentication, product management, shopping cart, checkout, admin dashboard, and responsive user interface.",
     tech: ["React", "Node.js", "Express", "MongoDB", "Firebase"],
     category: "Full Stack",
     github: "https://github.com/pratikshakadam912/Euphoria",
     live: "https://euphoria-nine-swart.vercel.app",
     image: websiteImg,
   },
+
   {
-    title: "Portfolio Website",
-    desc: "Animated portfolio with modern UI.",
-    tech: ["React", "Tailwind"],
-    category: "Frontend",
-    github: "https://github.com/pratikshakadam912/portfolio",
-    live: "https://portfolio-website-lime-seven-11.vercel.app/",
-    image: portfolioImg,
+    title: "AI Weather Prediction System",
+    desc: "A weather forecasting application that combines real-time weather data with Machine Learning to predict future weather conditions through a modern dashboard.",
+    tech: ["React", "Python", "Flask", "Machine Learning", "OpenWeather API"],
+    category: "AI / ML",
+    github: "YOUR_GITHUB_LINK",
+    live: "YOUR_VERCEL_LINK",
+    image: weatherImg,
   },
+
   {
-    title: "Chat App",
-    desc: "Realtime chat with authentication.",
-    tech: ["Firebase", "React"],
-    category: "Full Stack",
-    github: "#",
-    live: "#",
-    image: "https://images.unsplash.com/photo-1587614382346-4ec70e388b28",
+    title: "AI Resume Analyzer",
+    desc: "An intelligent resume analyzer that evaluates resumes, extracts key information, and provides suggestions using Python and AI-based text processing.",
+    tech: ["React", "Python", "Flask", "SQLite", "AI"],
+    category: "AI / ML",
+    github: "YOUR_GITHUB_LINK",
+    live: "YOUR_RENDER_OR_VERCEL_LINK",
+    image: resumeImg,
   },
 ];
-
 const Projects = () => {
   return (
     <section
