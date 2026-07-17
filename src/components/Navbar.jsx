@@ -30,6 +30,33 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    const handlePopState = () => {
+      setIsOpen(false);
+    };
+
+    if (isOpen) {
+      window.history.pushState({ menu: true }, "");
+      window.addEventListener("popstate", handlePopState);
+    }
+
+    return () => {
+      window.removeEventListener("popstate", handlePopState);
+    };
+  }, [isOpen]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 768) {
+        setIsOpen(false);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
     <>
       {/* NAVBAR */}
@@ -132,7 +159,7 @@ const Navbar = () => {
                   offset={-70}
                   spy={true}
                   onClick={() => setIsOpen(false)}
-                  className="text-2xl hover:text-blue-400 transition"
+                  className="text-2xl sm:text-3xl font-semibold hover:text-blue-400 transition"
                 >
                   {section.toUpperCase()}
                 </Link>
