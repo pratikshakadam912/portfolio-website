@@ -141,8 +141,7 @@ function ParticleCanvas() {
 }
 
 /* =========================================================
-   SYSTEM ERROR / GLITCH
-   The name stays completely clean.
+   SYSTEM GLITCH
 ========================================================= */
 
 function SystemGlitch({ glitch }) {
@@ -150,7 +149,7 @@ function SystemGlitch({ glitch }) {
     <AnimatePresence>
       {glitch && (
         <>
-          {/* Main screen displacement */}
+          {/* Screen displacement */}
 
           <motion.div
             initial={{ opacity: 0 }}
@@ -169,7 +168,7 @@ function SystemGlitch({ glitch }) {
             <div className="absolute top-[67%] left-0 w-full h-[1px] bg-cyan-400/30" />
           </motion.div>
 
-          {/* Error message */}
+          {/* System error */}
 
           <motion.div
             initial={{
@@ -190,18 +189,16 @@ function SystemGlitch({ glitch }) {
                 SYSTEM ERROR
               </div>
 
-              <div className="mt-1 text-[9px] tracking-[0.2em] text-white/40">
+              <div className="mt-1 text-[9px] tracking-[0.2em] text-neutral-400">
                 SIGNAL INTERRUPTED // 0x7F
               </div>
             </div>
           </motion.div>
 
-          {/* Random horizontal slices */}
+          {/* Horizontal slices */}
 
           <motion.div
-            initial={{
-              opacity: 0,
-            }}
+            initial={{ opacity: 0 }}
             animate={{
               opacity: [0, 0.7, 0, 0.5, 0],
               x: [0, 25, -18, 8, 0],
@@ -213,9 +210,7 @@ function SystemGlitch({ glitch }) {
           />
 
           <motion.div
-            initial={{
-              opacity: 0,
-            }}
+            initial={{ opacity: 0 }}
             animate={{
               opacity: [0, 0.6, 0, 0.4, 0],
               x: [0, -35, 20, -8, 0],
@@ -227,7 +222,7 @@ function SystemGlitch({ glitch }) {
             className="fixed top-[53%] left-0 w-full h-[2px] bg-violet-400/20 z-[92] pointer-events-none"
           />
 
-          {/* Screen scan */}
+          {/* Scan */}
 
           <motion.div
             initial={{
@@ -283,6 +278,8 @@ function Background() {
 
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      {/* Ambient violet */}
+
       <div
         className="absolute inset-0"
         style={{
@@ -290,6 +287,8 @@ function Background() {
             "radial-gradient(circle at center, rgba(100,70,180,0.10), transparent 45%)",
         }}
       />
+
+      {/* Mouse-reactive ambient light */}
 
       <motion.div
         style={{
@@ -299,7 +298,7 @@ function Background() {
         className="absolute w-[500px] h-[500px] rounded-full blur-[130px] bg-violet-600/10 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
       />
 
-      {/* Grid */}
+      {/* Technical grid */}
 
       <div
         className="absolute inset-0 opacity-[0.12]"
@@ -328,73 +327,6 @@ function Background() {
 }
 
 /* =========================================================
-   NAVIGATION
-========================================================= */
-
-function SystemNav({ scrollTo }) {
-  return (
-    <motion.nav
-      initial={{
-        opacity: 0,
-        y: -20,
-      }}
-      animate={{
-        opacity: 1,
-        y: 0,
-      }}
-      transition={{
-        duration: 0.7,
-      }}
-      className="relative z-30 flex items-center justify-between px-6 md:px-10 lg:px-16 py-6"
-    >
-      <div className="flex items-center gap-3">
-        <div className="w-9 h-9 border border-white/20 flex items-center justify-center font-black text-sm">
-          PK
-        </div>
-
-        <div className="hidden sm:block">
-          <p className="text-[10px] tracking-[0.35em] text-white/40">
-            DIGITAL WORKSPACE
-          </p>
-
-          <p className="text-xs text-white/80 tracking-wider">
-            PRATIKSHA // SYSTEM
-          </p>
-        </div>
-      </div>
-
-      <div className="hidden md:flex items-center gap-8 text-[11px] tracking-[0.25em] text-white/45">
-        <button
-          onClick={() => scrollTo("projects")}
-          className="hover:text-white transition"
-        >
-          WORK
-        </button>
-
-        <button
-          onClick={() => scrollTo("about")}
-          className="hover:text-white transition"
-        >
-          ABOUT
-        </button>
-
-        <button
-          onClick={() => scrollTo("contact")}
-          className="hover:text-white transition"
-        >
-          CONTACT
-        </button>
-      </div>
-
-      <div className="flex items-center gap-2 text-[10px] tracking-[0.2em] text-emerald-400">
-        <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-        AVAILABLE
-      </div>
-    </motion.nav>
-  );
-}
-
-/* =========================================================
    TERMINAL
 ========================================================= */
 
@@ -407,23 +339,23 @@ function TerminalWindow() {
         <div className="text-violet-400">// IDENTITY</div>
 
         <div>
-          <span className="text-white/30">01</span>{" "}
+          <span className="text-neutral-500">01</span>{" "}
           <span className="text-white">Pratiksha Kadam</span>
         </div>
 
         <div>
-          <span className="text-white/30">02</span>{" "}
-          <span className="text-white/60">MCA · Garden City University</span>
+          <span className="text-neutral-500">02</span>{" "}
+          <span className="text-neutral-300">MCA · Garden City University</span>
         </div>
 
         <div>
-          <span className="text-white/30">03</span>{" "}
-          <span className="text-white/60">Full Stack Developer</span>
+          <span className="text-neutral-500">03</span>{" "}
+          <span className="text-neutral-300">Full Stack Developer</span>
         </div>
 
         <div>
-          <span className="text-white/30">04</span>{" "}
-          <span className="text-white/60">Bengaluru, India</span>
+          <span className="text-neutral-500">04</span>{" "}
+          <span className="text-neutral-300">Bengaluru, India</span>
         </div>
       </div>
     ),
@@ -436,7 +368,7 @@ function TerminalWindow() {
           {stack.map((item) => (
             <span
               key={item}
-              className="px-2 py-1 border border-white/10 bg-white/[0.03] text-white/70 text-[10px]"
+              className="px-2 py-1 border border-white/10 bg-white/[0.03] text-neutral-300 text-[10px]"
             >
               {item}
             </span>
@@ -447,16 +379,16 @@ function TerminalWindow() {
 
     projects: (
       <div className="space-y-3">
-        <div className="text-pink-400">// PROJECTS</div>
+        <div className="text-cyan-400">// PROJECTS</div>
 
         {projects.map((project, index) => (
           <div key={project.name} className="flex gap-3">
-            <span className="text-white/20">0{index + 1}</span>
+            <span className="text-neutral-500">0{index + 1}</span>
 
             <div>
               <div className="text-white text-xs">{project.name}</div>
 
-              <div className="text-white/40 text-[10px]">{project.type}</div>
+              <div className="text-neutral-400 text-[10px]">{project.type}</div>
             </div>
           </div>
         ))}
@@ -483,21 +415,23 @@ function TerminalWindow() {
       <div className="absolute -inset-1 bg-violet-500/10 blur-2xl" />
 
       <div className="relative border border-white/10 bg-black/60 backdrop-blur-xl shadow-2xl">
+        {/* Header */}
+
         <div className="h-10 border-b border-white/10 flex items-center justify-between px-4">
           <div className="flex items-center gap-2">
             <div className="w-2.5 h-2.5 rounded-full bg-red-400/70" />
-
             <div className="w-2.5 h-2.5 rounded-full bg-yellow-400/70" />
-
             <div className="w-2.5 h-2.5 rounded-full bg-green-400/70" />
           </div>
 
-          <div className="text-[9px] tracking-[0.3em] text-white/30">
+          <div className="text-[9px] tracking-[0.3em] text-neutral-400">
             PRATIKSHA_TERMINAL
           </div>
 
-          <Terminal className="w-3.5 h-3.5 text-white/30" />
+          <Terminal className="w-3.5 h-3.5 text-neutral-500" />
         </div>
+
+        {/* Tabs */}
 
         <div className="flex border-b border-white/10 overflow-hidden">
           {["whoami", "stack", "projects"].map((item) => (
@@ -507,7 +441,7 @@ function TerminalWindow() {
               className={`px-4 py-3 text-[10px] font-mono transition ${
                 command === item
                   ? "text-white bg-white/[0.07]"
-                  : "text-white/35 hover:text-white/70"
+                  : "text-neutral-400 hover:text-white"
               }`}
             >
               {item}
@@ -515,8 +449,10 @@ function TerminalWindow() {
           ))}
         </div>
 
+        {/* Content */}
+
         <div className="min-h-[220px] p-5 font-mono text-xs">
-          <div className="flex items-center gap-2 mb-5 text-white/40">
+          <div className="flex items-center gap-2 mb-5 text-neutral-400">
             <span className="text-emerald-400">pratiksha@dev</span>
 
             <span>~$</span>
@@ -550,9 +486,10 @@ function TerminalWindow() {
           </AnimatePresence>
         </div>
 
-        <div className="border-t border-white/10 px-4 py-3 flex items-center justify-between text-[9px] tracking-wider text-white/25">
-          <span>STATUS: ONLINE</span>
+        {/* Footer */}
 
+        <div className="border-t border-white/10 px-4 py-3 flex items-center justify-between text-[9px] tracking-wider text-neutral-500">
+          <span>STATUS: ONLINE</span>
           <span>SYS_2026</span>
         </div>
       </div>
@@ -634,12 +571,12 @@ function FallingIdentity() {
               delay: 1.35 + index * 0.13,
               duration: 0.5,
             }}
-            className="absolute left-[-9px] top-5 w-4 h-4 bg-black border border-white/20 text-[7px] flex items-center justify-center text-white/40"
+            className="absolute left-[-9px] top-5 w-4 h-4 bg-black border border-white/20 text-[7px] flex items-center justify-center text-neutral-400"
           >
             {item.number}
           </motion.div>
 
-          <div className="text-[8px] tracking-[0.35em] text-white/25 mb-1">
+          <div className="text-[8px] tracking-[0.35em] text-neutral-500 mb-1">
             {item.label}
           </div>
 
@@ -652,7 +589,7 @@ function FallingIdentity() {
               repeat: Infinity,
               delay: index * 0.4,
             }}
-            className="text-xs font-semibold tracking-[0.18em] text-white/65"
+            className="text-xs font-semibold tracking-[0.18em] text-neutral-200"
           >
             {item.value}
           </motion.div>
@@ -700,7 +637,9 @@ export default function Hero() {
   const [typedRole, setTypedRole] = useState("");
   const [systemGlitch, setSystemGlitch] = useState(false);
 
-  /* Boot */
+  /* =======================================================
+     BOOT
+  ======================================================= */
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -710,7 +649,9 @@ export default function Hero() {
     return () => clearTimeout(timer);
   }, []);
 
-  /* Role typing */
+  /* =======================================================
+     ROLE TYPING
+  ======================================================= */
 
   useEffect(() => {
     if (!booted) return;
@@ -739,10 +680,7 @@ export default function Hero() {
   }, [booted, roleIndex]);
 
   /* =======================================================
-     SYSTEM ERROR EVENT
-     
-     The whole interface briefly shifts.
-     The name itself is untouched.
+     SYSTEM GLITCH
   ======================================================= */
 
   useEffect(() => {
@@ -763,7 +701,6 @@ export default function Hero() {
 
       timeout = setTimeout(() => {
         triggerGlitch();
-
         schedule();
       }, next);
     };
@@ -774,6 +711,10 @@ export default function Hero() {
       clearTimeout(timeout);
     };
   }, [booted]);
+
+  /* =======================================================
+     SCROLL
+  ======================================================= */
 
   const scrollTo = (id) => {
     const element = document.getElementById(id);
@@ -788,14 +729,14 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative min-h-screen overflow-hidden bg-[#050507] text-white"
+      className="relative min-h-screen overflow-hidden bg-[#050505] text-white"
     >
       {/* SYSTEM GLITCH */}
 
       <SystemGlitch glitch={systemGlitch} />
 
       {/* =================================================
-          BOOT
+          BOOT SCREEN
       ================================================= */}
 
       <AnimatePresence>
@@ -812,12 +753,11 @@ export default function Hero() {
             transition={{
               duration: 0.7,
             }}
-            className="fixed inset-0 z-[100] bg-[#050507] flex items-center justify-center"
+            className="fixed inset-0 z-[100] bg-[#050505] flex items-center justify-center"
           >
             <div className="w-[280px]">
-              <div className="flex items-center justify-between mb-3 text-[9px] tracking-[0.3em] text-white/40">
+              <div className="flex items-center justify-between mb-3 text-[9px] tracking-[0.3em] text-neutral-400">
                 <span>INITIALIZING WORKSPACE</span>
-
                 <span>01</span>
               </div>
 
@@ -837,7 +777,7 @@ export default function Hero() {
                 />
               </div>
 
-              <div className="mt-4 text-[8px] tracking-[0.25em] text-white/25">
+              <div className="mt-4 text-[8px] tracking-[0.25em] text-neutral-500">
                 LOADING PRATIKSHA.SYSTEM...
               </div>
             </div>
@@ -847,7 +787,7 @@ export default function Hero() {
 
       <Background />
 
-      <SystemNav scrollTo={scrollTo} />
+      {/* Global Navbar comes from Home.jsx */}
 
       <FallingIdentity />
 
@@ -855,11 +795,15 @@ export default function Hero() {
           MAIN HERO
       ================================================= */}
 
-      <div className="relative z-10 min-h-[calc(100vh-90px)] px-6 md:px-10 lg:px-16 flex items-center">
+      <div className="relative z-10 min-h-screen px-6 md:px-10 lg:px-16 flex items-center pt-24 pb-24">
         <div className="w-full max-w-[1500px] mx-auto grid lg:grid-cols-[1.15fr_0.85fr] gap-16 items-center">
-          {/* LEFT */}
+          {/* =================================================
+              LEFT
+          ================================================= */}
 
           <div className="relative">
+            {/* System label */}
+
             <motion.div
               initial={{
                 opacity: 0,
@@ -877,7 +821,7 @@ export default function Hero() {
             >
               <div className="w-8 h-px bg-violet-500" />
 
-              <span className="text-[9px] tracking-[0.4em] text-white/30">
+              <span className="text-[9px] tracking-[0.4em] text-neutral-500">
                 SYSTEM / 001
               </span>
 
@@ -886,7 +830,7 @@ export default function Hero() {
               </span>
             </motion.div>
 
-            {/* CLEAN NAME */}
+            {/* NAME */}
 
             <div className="relative">
               <motion.h1
@@ -906,7 +850,7 @@ export default function Hero() {
                   type: "spring",
                   stiffness: 70,
                 }}
-                className="text-[15vw] lg:text-[9.5vw] xl:text-[8.5rem] leading-[0.78] font-black tracking-[-0.08em]"
+                className="text-[15vw] lg:text-[9.5vw] xl:text-[8.5rem] leading-[0.78] font-black tracking-[-0.08em] text-white"
               >
                 PRATIKSHA
               </motion.h1>
@@ -953,7 +897,7 @@ export default function Hero() {
             >
               <span className="text-violet-400 font-mono text-sm">&gt;_</span>
 
-              <span className="text-xl md:text-2xl tracking-[0.12em] font-light">
+              <span className="text-xl md:text-2xl tracking-[0.12em] font-medium text-white">
                 {typedRole}
               </span>
 
@@ -975,7 +919,7 @@ export default function Hero() {
                 duration: 0.6,
                 delay: 1.55,
               }}
-              className="mt-7 max-w-[650px] text-sm md:text-base leading-7 text-white/45"
+              className="mt-7 max-w-[650px] text-sm md:text-base leading-7 text-neutral-300"
             >
               I build modern full-stack web applications with React, Node.js and
               Python — while exploring the intersection of software engineering
@@ -1011,7 +955,7 @@ export default function Hero() {
                   transition={{
                     delay: 1.8 + index * 0.05,
                   }}
-                  className="px-3 py-1.5 border border-white/10 bg-white/[0.025] text-[9px] tracking-[0.15em] text-white/40 hover:text-white hover:border-white/25 transition"
+                  className="px-3 py-1.5 border border-white/10 bg-white/[0.025] text-[9px] tracking-[0.15em] text-neutral-300 hover:text-white hover:border-white/25 transition"
                 >
                   {item}
                 </motion.span>
@@ -1047,7 +991,7 @@ export default function Hero() {
                 href="/resume.pdf"
                 target="_blank"
                 rel="noreferrer"
-                className="flex items-center gap-3 px-6 py-3.5 border border-white/15 text-white/70 text-[10px] font-bold tracking-[0.2em] hover:bg-white/5 hover:text-white transition"
+                className="flex items-center gap-3 px-6 py-3.5 border border-white/15 text-neutral-300 text-[10px] font-bold tracking-[0.2em] hover:bg-white/5 hover:text-white transition"
               >
                 RESUME
                 <ExternalLink className="w-3.5 h-3.5" />
@@ -1057,7 +1001,8 @@ export default function Hero() {
                 href="https://github.com/pratikshakadam912"
                 target="_blank"
                 rel="noreferrer"
-                className="flex items-center gap-3 px-4 py-3.5 border border-white/10 text-white/40 hover:text-white transition"
+                aria-label="GitHub"
+                className="flex items-center gap-3 px-4 py-3.5 border border-white/10 text-neutral-300 hover:text-white hover:border-white/25 transition"
               >
                 <Code2 className="w-4 h-4" />
               </a>
@@ -1076,7 +1021,7 @@ export default function Hero() {
                 duration: 0.8,
                 delay: 2.2,
               }}
-              className="mt-12 flex flex-wrap gap-8 text-[9px] tracking-[0.25em] text-white/25"
+              className="mt-12 flex flex-wrap gap-8 text-[9px] tracking-[0.25em] text-neutral-400"
             >
               <div className="flex items-center gap-2">
                 <GraduationCap className="w-3.5 h-3.5" />
@@ -1090,11 +1035,15 @@ export default function Hero() {
             </motion.div>
           </div>
 
-          {/* RIGHT */}
+          {/* =================================================
+              RIGHT
+          ================================================= */}
 
           <div className="flex justify-center lg:justify-end">
             <div className="w-full max-w-[520px]">
               <TerminalWindow />
+
+              {/* System status */}
 
               <motion.div
                 initial={{
@@ -1112,27 +1061,29 @@ export default function Hero() {
                 className="mt-4 grid grid-cols-3 border border-white/10 bg-white/[0.015]"
               >
                 <div className="p-4 border-r border-white/10">
-                  <div className="text-[8px] tracking-[0.25em] text-white/25">
+                  <div className="text-[8px] tracking-[0.25em] text-neutral-500">
                     BUILD
                   </div>
 
-                  <div className="mt-2 text-xs text-white/70">FULL STACK</div>
+                  <div className="mt-2 text-xs text-neutral-300">
+                    FULL STACK
+                  </div>
                 </div>
 
                 <div className="p-4 border-r border-white/10">
-                  <div className="text-[8px] tracking-[0.25em] text-white/25">
+                  <div className="text-[8px] tracking-[0.25em] text-neutral-500">
                     FOCUS
                   </div>
 
-                  <div className="mt-2 text-xs text-white/70">WEB + AI</div>
+                  <div className="mt-2 text-xs text-neutral-300">WEB + AI</div>
                 </div>
 
                 <div className="p-4">
-                  <div className="text-[8px] tracking-[0.25em] text-white/25">
+                  <div className="text-[8px] tracking-[0.25em] text-neutral-500">
                     STATUS
                   </div>
 
-                  <div className="mt-2 flex items-center gap-2 text-xs text-emerald-400">
+                  <div className="mt-2 flex items-center gap-2 text-xs text-cyan-400">
                     <Check className="w-3 h-3" />
                     ONLINE
                   </div>
@@ -1160,13 +1111,13 @@ export default function Hero() {
         }}
         className="absolute bottom-7 left-6 right-6 md:left-10 md:right-10 lg:left-16 lg:right-16 z-20 flex items-end justify-between"
       >
-        <div className="hidden md:block text-[8px] tracking-[0.3em] text-white/20">
+        <div className="hidden md:block text-[8px] tracking-[0.3em] text-neutral-500">
           PRATIKSHA.KADAM / 2026
         </div>
 
         <button
           onClick={() => scrollTo("projects")}
-          className="group flex items-center gap-3 text-[9px] tracking-[0.3em] text-white/30 hover:text-white transition"
+          className="group flex items-center gap-3 text-[9px] tracking-[0.3em] text-neutral-400 hover:text-white transition"
         >
           SCROLL TO EXPLORE
           <span className="w-8 h-8 border border-white/10 flex items-center justify-center group-hover:border-white/30 transition">
@@ -1174,7 +1125,7 @@ export default function Hero() {
           </span>
         </button>
 
-        <div className="hidden md:block text-[8px] tracking-[0.25em] text-white/20">
+        <div className="hidden md:block text-[8px] tracking-[0.25em] text-neutral-500">
           01 / 05
         </div>
       </motion.div>

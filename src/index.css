@@ -110,35 +110,6 @@ body {
   }
 }
 
-/* ===== CURSOR GLOW ===== */
-.cursor-glow {
-  position: fixed;
-  width: 220px;
-  height: 220px;
-  pointer-events: none;
-  transform: translate(-50%, -50%);
-  z-index: 0;
-  transition: background 0.4s ease;
-}
-
-.dark .cursor-glow {
-  background: radial-gradient(
-    circle,
-    rgba(59, 130, 246, 0.22) 0%,
-    rgba(139, 92, 246, 0.18) 35%,
-    transparent 72%
-  );
-}
-
-.cursor-glow {
-  background: radial-gradient(
-    circle,
-    rgba(244, 114, 182, 0.22) 0%,
-    rgba(196, 181, 253, 0.18) 35%,
-    transparent 72%
-  );
-}
-
 /* ===== OPTIONAL DEPTH EFFECT ===== */
 .perspective {
   perspective: 1000px;
