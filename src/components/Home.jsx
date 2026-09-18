@@ -7,21 +7,31 @@ import Contact from "./Contact";
 import Footer from "./Footer";
 import AIChat from "./AIChat";
 
-
-
 export default function Home() {
-    return (
-        <>
-            <Navbar />
+  return (
+    <main className="min-h-screen bg-[#050505] text-white overflow-x-hidden">
+      <Navbar />
 
-            <div className="pt-20">
-                <Hero />
-                <About />
-                <Projects />
-                <Contact />
-                <AIChat />
-                <Footer />
-            </div>
-        </>
-    );
+      <div>
+        <section id="home">
+          <Hero />
+        </section>
+
+        <section id="projects">
+          <Projects />
+        </section>
+
+        <section id="about">
+          <About />
+        </section>
+
+        <section id="contact">
+          <Contact />
+        </section>
+
+        <AIChat />
+        <Footer />
+      </div>
+    </main>
+  );
 }
