@@ -475,10 +475,6 @@ const AIChat = () => {
                 </div>
               </div>
 
-              {/* =================================================
-                  QUICK QUESTIONS
-              ================================================= */}
-
               <div className="relative border-t border-white/10 px-4 py-3">
                 <div className="flex items-center gap-2 mb-2">
                   <Sparkles className="w-3 h-3 text-violet-400" />
@@ -502,10 +498,6 @@ const AIChat = () => {
                   ))}
                 </div>
               </div>
-
-              {/* =================================================
-                  INPUT
-              ================================================= */}
 
               <div className="relative border-t border-white/10 p-3">
                 <div className="flex items-center gap-2 border border-white/10 bg-white/[0.025] focus-within:border-cyan-400/30 transition">
@@ -546,10 +538,6 @@ const AIChat = () => {
                   </div>
                 </div>
               </div>
-
-              {/* =================================================
-                  BOTTOM LINE
-              ================================================= */}
 
               <div className="h-[2px] bg-gradient-to-r from-transparent via-cyan-400/40 to-transparent" />
             </div>

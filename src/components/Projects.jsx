@@ -11,7 +11,7 @@ import {
 
 import websiteImg from "../assets/website.png";
 import weatherImg from "../assets/weather.jpeg";
-import resumeImg from "../assets/resume.jpeg";
+import resumeImg from "../assets/resume.png";
 
 const projects = [
   {
