@@ -1,729 +1,230 @@
-import React, { useEffect, useRef, useState } from "react";
-import {
-  motion,
-  AnimatePresence,
-  useMotionValue,
-  useSpring,
-} from "framer-motion";
+import React, { useEffect, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import {
   ArrowDown,
   ArrowUpRight,
-  Check,
   Code2,
-  ExternalLink,
-  GraduationCap,
+  Cpu,
+  Database,
+  Sparkles,
   Terminal,
-  Zap,
 } from "lucide-react";
 
-/* =========================================================
-   DATA
-========================================================= */
-
-const roles = [
-  "FULL STACK DEVELOPER",
-  "REACT DEVELOPER",
-  "AI / ML DEVELOPER",
-  "SOFTWARE ENGINEER",
+const technologies = [
+  { name: "REACT", angle: 0 },
+  { name: "NODE.JS", angle: 60 },
+  { name: "PYTHON", angle: 120 },
+  { name: "POSTGRESQL", angle: 180 },
+  { name: "JAVASCRIPT", angle: 240 },
+  { name: "EXPRESS", angle: 300 },
 ];
 
-const stack = [
-  "React",
-  "JavaScript",
-  "Node.js",
-  "Express",
-  "Python",
-  "MongoDB",
-  "PostgreSQL",
-  "Tailwind",
-];
-
-const projects = [
+const expertise = [
   {
-    name: "EUPHORIA",
-    type: "FULL STACK E-COMMERCE",
+    number: "01",
+    title: "FULL STACK",
     description:
-      "Luxury fashion e-commerce platform with authentication, admin management and product systems.",
-    url: "https://euphoria-nine-swart.vercel.app",
+      "Building responsive interfaces and full-stack web applications.",
+    icon: Code2,
   },
   {
-    name: "AI WEATHER",
-    type: "AI / FULL STACK",
-    description:
-      "Weather prediction platform combining React, Flask, OpenWeather and machine learning.",
-    url: "https://ai-weather-prediction-system.vercel.app",
+    number: "02",
+    title: "BACKEND SYSTEMS",
+    description: "Developing APIs, server logic and database-driven systems.",
+    icon: Database,
   },
   {
-    name: "REVIO",
-    type: "AI RESUME ANALYZER",
+    number: "03",
+    title: "AI INTEGRATION",
     description:
-      "AI-powered resume analysis platform focused on ATS scoring, skills and career insights.",
-    url: "#",
+      "Exploring intelligent features within practical web products.",
+    icon: Cpu,
   },
 ];
 
-/* =========================================================
-   PARTICLES
-========================================================= */
+const fadeUp = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0 },
+};
 
-function ParticleCanvas() {
-  const canvasRef = useRef(null);
+const container = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.12,
+      delayChildren: 0.1,
+    },
+  },
+};
 
-  useEffect(() => {
-    const canvas = canvasRef.current;
-
-    if (!canvas) return;
-
-    const ctx = canvas.getContext("2d");
-
-    let width = window.innerWidth;
-    let height = window.innerHeight;
-
-    const resize = () => {
-      width = window.innerWidth;
-      height = window.innerHeight;
-
-      canvas.width = width;
-      canvas.height = height;
-    };
-
-    resize();
-
-    const particles = Array.from({ length: 85 }, () => ({
-      x: Math.random() * width,
-      y: Math.random() * height,
-      size: Math.random() * 1.5 + 0.4,
-      speed: Math.random() * 0.35 + 0.08,
-      opacity: Math.random() * 0.5 + 0.1,
-    }));
-
-    let animationFrame;
-
-    const animate = () => {
-      ctx.clearRect(0, 0, width, height);
-
-      particles.forEach((particle) => {
-        particle.y -= particle.speed;
-
-        if (particle.y < -10) {
-          particle.y = height + 10;
-          particle.x = Math.random() * width;
-        }
-
-        ctx.beginPath();
-
-        ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
-
-        ctx.fillStyle = `rgba(255,255,255,${particle.opacity})`;
-
-        ctx.fill();
-      });
-
-      animationFrame = requestAnimationFrame(animate);
-    };
-
-    animate();
-
-    window.addEventListener("resize", resize);
-
-    return () => {
-      cancelAnimationFrame(animationFrame);
-      window.removeEventListener("resize", resize);
-    };
-  }, []);
-
+function IdentityVisual({ booted }) {
   return (
-    <canvas
-      ref={canvasRef}
-      className="absolute inset-0 pointer-events-none opacity-50"
-    />
-  );
-}
+    <div className="relative mx-auto aspect-square w-full max-w-[540px]">
+      {/* Ambient glow */}
+      <div className="absolute inset-[15%] rounded-full bg-cyan-500/[0.08] blur-[90px]" />
+      <div className="absolute inset-[25%] rounded-full bg-violet-500/[0.10] blur-[80px]" />
 
-/* =========================================================
-   SYSTEM GLITCH
-========================================================= */
-
-function SystemGlitch({ glitch }) {
-  return (
-    <AnimatePresence>
-      {glitch && (
-        <>
-          {/* Screen displacement */}
-
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{
-              opacity: [0, 0.8, 0.4, 0],
-              x: [0, -7, 5, 0],
-            }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.28 }}
-            className="fixed inset-0 z-[90] pointer-events-none"
-          >
-            <div className="absolute inset-0 border-y border-violet-400/40" />
-
-            <div className="absolute top-[31%] left-0 w-full h-[2px] bg-violet-400/40" />
-
-            <div className="absolute top-[67%] left-0 w-full h-[1px] bg-cyan-400/30" />
-          </motion.div>
-
-          {/* System error */}
-
-          <motion.div
-            initial={{
-              opacity: 0,
-              x: 40,
-            }}
-            animate={{
-              opacity: [0, 1, 1, 0],
-              x: [40, 0, 3, -20],
-            }}
-            transition={{
-              duration: 0.65,
-            }}
-            className="fixed right-8 top-28 z-[95] pointer-events-none font-mono"
-          >
-            <div className="border border-red-400/30 bg-black/80 px-4 py-3 backdrop-blur-md">
-              <div className="text-[8px] tracking-[0.3em] text-red-400">
-                SYSTEM ERROR
-              </div>
-
-              <div className="mt-1 text-[9px] tracking-[0.2em] text-neutral-400">
-                SIGNAL INTERRUPTED // 0x7F
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Horizontal slices */}
-
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{
-              opacity: [0, 0.7, 0, 0.5, 0],
-              x: [0, 25, -18, 8, 0],
-            }}
-            transition={{
-              duration: 0.4,
-            }}
-            className="fixed top-[44%] left-0 w-full h-[5px] bg-white/10 z-[92] pointer-events-none"
-          />
-
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{
-              opacity: [0, 0.6, 0, 0.4, 0],
-              x: [0, -35, 20, -8, 0],
-            }}
-            transition={{
-              duration: 0.32,
-              delay: 0.08,
-            }}
-            className="fixed top-[53%] left-0 w-full h-[2px] bg-violet-400/20 z-[92] pointer-events-none"
-          />
-
-          {/* Scan */}
-
-          <motion.div
-            initial={{
-              y: "-100%",
-              opacity: 0,
-            }}
-            animate={{
-              y: "100%",
-              opacity: [0, 0.35, 0],
-            }}
-            transition={{
-              duration: 0.5,
-              ease: "linear",
-            }}
-            className="fixed left-0 top-0 w-full h-[18%] bg-gradient-to-b from-transparent via-violet-400/10 to-transparent z-[91] pointer-events-none"
-          />
-        </>
-      )}
-    </AnimatePresence>
-  );
-}
-
-/* =========================================================
-   BACKGROUND
-========================================================= */
-
-function Background() {
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-
-  const springX = useSpring(mouseX, {
-    stiffness: 80,
-    damping: 25,
-  });
-
-  const springY = useSpring(mouseY, {
-    stiffness: 80,
-    damping: 25,
-  });
-
-  useEffect(() => {
-    const move = (event) => {
-      mouseX.set(event.clientX - window.innerWidth / 2);
-      mouseY.set(event.clientY - window.innerHeight / 2);
-    };
-
-    window.addEventListener("mousemove", move);
-
-    return () => {
-      window.removeEventListener("mousemove", move);
-    };
-  }, [mouseX, mouseY]);
-
-  return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {/* Ambient violet */}
-
-      <div
-        className="absolute inset-0"
-        style={{
-          background:
-            "radial-gradient(circle at center, rgba(100,70,180,0.10), transparent 45%)",
-        }}
-      />
-
-      {/* Mouse-reactive ambient light */}
-
+      {/* Outer orbital rings */}
       <motion.div
-        style={{
-          x: springX,
-          y: springY,
-        }}
-        className="absolute w-[500px] h-[500px] rounded-full blur-[130px] bg-violet-600/10 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
-      />
-
-      {/* Technical grid */}
-
-      <div
-        className="absolute inset-0 opacity-[0.12]"
-        style={{
-          backgroundImage: `
-            linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px)
-          `,
-          backgroundSize: "60px 60px",
-        }}
-      />
-
-      {/* Scanlines */}
-
-      <div
-        className="absolute inset-0 opacity-[0.025]"
-        style={{
-          backgroundImage:
-            "repeating-linear-gradient(0deg, transparent, transparent 3px, white 4px)",
-        }}
-      />
-
-      <ParticleCanvas />
-    </div>
-  );
-}
-
-/* =========================================================
-   TERMINAL
-========================================================= */
-
-function TerminalWindow() {
-  const [command, setCommand] = useState("whoami");
-
-  const outputs = {
-    whoami: (
-      <div className="space-y-2">
-        <div className="text-violet-400">// IDENTITY</div>
-
-        <div>
-          <span className="text-neutral-500">01</span>{" "}
-          <span className="text-white">Pratiksha Kadam</span>
-        </div>
-
-        <div>
-          <span className="text-neutral-500">02</span>{" "}
-          <span className="text-neutral-300">MCA · Garden City University</span>
-        </div>
-
-        <div>
-          <span className="text-neutral-500">03</span>{" "}
-          <span className="text-neutral-300">Full Stack Developer</span>
-        </div>
-
-        <div>
-          <span className="text-neutral-500">04</span>{" "}
-          <span className="text-neutral-300">Bengaluru, India</span>
-        </div>
-      </div>
-    ),
-
-    stack: (
-      <div className="space-y-2">
-        <div className="text-cyan-400">// STACK</div>
-
-        <div className="flex flex-wrap gap-2 pt-2">
-          {stack.map((item) => (
-            <span
-              key={item}
-              className="px-2 py-1 border border-white/10 bg-white/[0.03] text-neutral-300 text-[10px]"
-            >
-              {item}
-            </span>
-          ))}
-        </div>
-      </div>
-    ),
-
-    projects: (
-      <div className="space-y-3">
-        <div className="text-cyan-400">// PROJECTS</div>
-
-        {projects.map((project, index) => (
-          <div key={project.name} className="flex gap-3">
-            <span className="text-neutral-500">0{index + 1}</span>
-
-            <div>
-              <div className="text-white text-xs">{project.name}</div>
-
-              <div className="text-neutral-400 text-[10px]">{project.type}</div>
-            </div>
-          </div>
-        ))}
-      </div>
-    ),
-  };
-
-  return (
-    <motion.div
-      initial={{
-        opacity: 0,
-        x: 80,
-      }}
-      animate={{
-        opacity: 1,
-        x: 0,
-      }}
-      transition={{
-        duration: 0.9,
-        delay: 1.1,
-      }}
-      className="relative w-full max-w-[470px]"
-    >
-      <div className="absolute -inset-1 bg-violet-500/10 blur-2xl" />
-
-      <div className="relative border border-white/10 bg-black/60 backdrop-blur-xl shadow-2xl">
-        {/* Header */}
-
-        <div className="h-10 border-b border-white/10 flex items-center justify-between px-4">
-          <div className="flex items-center gap-2">
-            <div className="w-2.5 h-2.5 rounded-full bg-red-400/70" />
-            <div className="w-2.5 h-2.5 rounded-full bg-yellow-400/70" />
-            <div className="w-2.5 h-2.5 rounded-full bg-green-400/70" />
-          </div>
-
-          <div className="text-[9px] tracking-[0.3em] text-neutral-400">
-            PRATIKSHA_TERMINAL
-          </div>
-
-          <Terminal className="w-3.5 h-3.5 text-neutral-500" />
-        </div>
-
-        {/* Tabs */}
-
-        <div className="flex border-b border-white/10 overflow-hidden">
-          {["whoami", "stack", "projects"].map((item) => (
-            <button
-              key={item}
-              onClick={() => setCommand(item)}
-              className={`px-4 py-3 text-[10px] font-mono transition ${
-                command === item
-                  ? "text-white bg-white/[0.07]"
-                  : "text-neutral-400 hover:text-white"
-              }`}
-            >
-              {item}
-            </button>
-          ))}
-        </div>
-
-        {/* Content */}
-
-        <div className="min-h-[220px] p-5 font-mono text-xs">
-          <div className="flex items-center gap-2 mb-5 text-neutral-400">
-            <span className="text-emerald-400">pratiksha@dev</span>
-
-            <span>~$</span>
-
-            <span className="text-white">{command}</span>
-
-            <span className="w-1.5 h-3 bg-white/70 animate-pulse" />
-          </div>
-
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={command}
-              initial={{
-                opacity: 0,
-                y: 8,
-              }}
-              animate={{
-                opacity: 1,
-                y: 0,
-              }}
-              exit={{
-                opacity: 0,
-                y: -8,
-              }}
-              transition={{
-                duration: 0.2,
-              }}
-            >
-              {outputs[command]}
-            </motion.div>
-          </AnimatePresence>
-        </div>
-
-        {/* Footer */}
-
-        <div className="border-t border-white/10 px-4 py-3 flex items-center justify-between text-[9px] tracking-wider text-neutral-500">
-          <span>STATUS: ONLINE</span>
-          <span>SYS_2026</span>
-        </div>
-      </div>
-    </motion.div>
-  );
-}
-
-/* =========================================================
-   FALLING IDENTITY
-========================================================= */
-
-function FallingIdentity() {
-  const items = [
-    {
-      number: "01",
-      label: "NAME",
-      value: "PRATIKSHA KADAM",
-    },
-    {
-      number: "02",
-      label: "ROLE",
-      value: "FULL STACK DEVELOPER",
-    },
-    {
-      number: "03",
-      label: "FOCUS",
-      value: "WEB + AI / ML",
-    },
-    {
-      number: "04",
-      label: "EDUCATION",
-      value: "MCA · GARDEN CITY UNIVERSITY",
-    },
-    {
-      number: "05",
-      label: "LOCATION",
-      value: "BENGALURU / INDIA",
-    },
-  ];
-
-  return (
-    <div className="absolute right-[-5%] top-[18%] hidden xl:block w-[340px] pointer-events-none">
-      {items.map((item, index) => (
-        <motion.div
-          key={item.number}
-          initial={{
-            opacity: 0,
-            y: -160 - index * 60,
-            rotateX: 65,
-            scale: 0.7,
-            filter: "blur(12px)",
-          }}
-          animate={{
-            opacity: 1,
-            y: 0,
-            rotateX: 0,
-            scale: 1,
-            filter: "blur(0px)",
-          }}
-          transition={{
-            duration: 0.8,
-            delay: 1.25 + index * 0.13,
-            type: "spring",
-            stiffness: 120,
-            damping: 12,
-          }}
-          className="relative border-l border-white/10 py-4 pl-5 mb-2"
-        >
-          <motion.div
-            initial={{
-              y: -40,
-              opacity: 0,
-            }}
-            animate={{
-              y: 0,
-              opacity: 1,
-            }}
-            transition={{
-              delay: 1.35 + index * 0.13,
-              duration: 0.5,
-            }}
-            className="absolute left-[-9px] top-5 w-4 h-4 bg-black border border-white/20 text-[7px] flex items-center justify-center text-neutral-400"
-          >
-            {item.number}
-          </motion.div>
-
-          <div className="text-[8px] tracking-[0.35em] text-neutral-500 mb-1">
-            {item.label}
-          </div>
-
-          <motion.div
-            animate={{
-              x: [0, -2, 2, 0],
-            }}
-            transition={{
-              duration: 4,
-              repeat: Infinity,
-              delay: index * 0.4,
-            }}
-            className="text-xs font-semibold tracking-[0.18em] text-neutral-200"
-          >
-            {item.value}
-          </motion.div>
-
-          <motion.div
-            initial={{
-              scaleX: 0,
-            }}
-            animate={{
-              scaleX: 1,
-            }}
-            transition={{
-              delay: 1.5 + index * 0.13,
-              duration: 0.8,
-            }}
-            className="origin-left mt-2 h-[1px] w-full bg-gradient-to-r from-violet-500/50 to-transparent"
-          />
-        </motion.div>
-      ))}
-
-      <motion.div
-        initial={{
-          height: 0,
-        }}
-        animate={{
-          height: "100%",
-        }}
+        animate={booted ? { rotate: 360 } : { rotate: 0 }}
         transition={{
-          duration: 1.8,
-          delay: 1.2,
+          duration: 42,
+          repeat: Infinity,
+          ease: "linear",
         }}
-        className="absolute left-0 top-0 w-px bg-gradient-to-b from-violet-500/60 via-cyan-400/20 to-transparent"
-      />
+        className="absolute inset-[4%] rounded-full border border-white/[0.08]"
+      >
+        <span className="absolute left-[16%] top-[16%] h-2 w-2 rounded-full bg-cyan-400 shadow-[0_0_18px_rgba(34,211,238,0.8)]" />
+      </motion.div>
+
+      <motion.div
+        animate={booted ? { rotate: -360 } : { rotate: 0 }}
+        transition={{
+          duration: 55,
+          repeat: Infinity,
+          ease: "linear",
+        }}
+        className="absolute inset-[14%] rounded-full border border-dashed border-violet-400/20"
+      >
+        <span className="absolute right-[12%] top-[25%] h-1.5 w-1.5 rounded-full bg-violet-400" />
+      </motion.div>
+
+      {/* Floating technology labels */}
+      {technologies.map((tech, index) => {
+        const angle = (tech.angle * Math.PI) / 180;
+        const radius = 42;
+        const x = 50 + Math.cos(angle) * radius;
+        const y = 50 + Math.sin(angle) * radius;
+
+        return (
+          <motion.div
+            key={tech.name}
+            initial={{ opacity: 0, scale: 0.7 }}
+            animate={
+              booted
+                ? {
+                    opacity: 1,
+                    scale: 1,
+                    y: [0, -5, 0],
+                  }
+                : { opacity: 0, scale: 0.7 }
+            }
+            transition={{
+              opacity: { duration: 0.5, delay: 0.2 + index * 0.1 },
+              scale: { duration: 0.5, delay: 0.2 + index * 0.1 },
+              y: {
+                duration: 4 + index * 0.3,
+                repeat: Infinity,
+                ease: "easeInOut",
+              },
+            }}
+            className="absolute z-20 -translate-x-1/2 -translate-y-1/2"
+            style={{
+              left: `${x}%`,
+              top: `${y}%`,
+            }}
+          >
+            <div className="whitespace-nowrap border border-white/10 bg-[#080808]/90 px-2 py-2 font-mono text-[7px] tracking-[0.1em] text-neutral-300 shadow-[0_0_30px_rgba(0,0,0,0.4)] sm:px-3 sm:text-[9px]">
+              <span className="mr-1.5 text-cyan-400">●</span>
+              {tech.name}
+            </div>
+          </motion.div>
+        );
+      })}
+
+      {/* Central identity structure */}
+      <div className="absolute inset-[25%] flex items-center justify-center">
+        <motion.div
+          animate={
+            booted
+              ? {
+                  rotate: 360,
+                  scale: [1, 1.04, 1],
+                }
+              : { rotate: 0, scale: 0.85 }
+          }
+          transition={{
+            rotate: {
+              duration: 28,
+              repeat: Infinity,
+              ease: "linear",
+            },
+            scale: {
+              duration: 5,
+              repeat: Infinity,
+              ease: "easeInOut",
+            },
+          }}
+          className="relative aspect-square w-full"
+        >
+          <div className="absolute inset-[8%] rotate-45 border border-cyan-400/30" />
+          <div className="absolute inset-[20%] rotate-45 border border-violet-400/30" />
+
+          <div className="absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-gradient-to-b from-transparent via-cyan-400/50 to-transparent" />
+
+          <div className="absolute left-0 top-1/2 h-px w-full -translate-y-1/2 bg-gradient-to-r from-transparent via-violet-400/50 to-transparent" />
+
+          {/* PK core */}
+          <div className="absolute inset-[30%] flex items-center justify-center border border-white/10 bg-[#080808]">
+            <motion.div
+              animate={
+                booted
+                  ? {
+                      opacity: [0.5, 1, 0.5],
+                      scale: [0.9, 1.1, 0.9],
+                    }
+                  : { opacity: 0, scale: 0.7 }
+              }
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+              className="flex h-full w-full items-center justify-center"
+            >
+              <span className="font-mono text-2xl font-bold tracking-[-0.1em] text-white sm:text-3xl">
+                PK<span className="text-cyan-400">.</span>
+              </span>
+            </motion.div>
+          </div>
+        </motion.div>
+      </div>
+
+      {/* Technical annotations */}
+      <div className="absolute left-0 top-[35%] hidden font-mono text-[8px] leading-5 tracking-[0.15em] text-neutral-500 sm:block">
+        <div>IDENTITY_CORE</div>
+        <div className="text-cyan-400">ACTIVE / 001</div>
+      </div>
+
+      <div className="absolute bottom-[23%] right-0 hidden text-right font-mono text-[8px] leading-5 tracking-[0.15em] text-neutral-500 sm:block">
+        <div>ENGINEERING_MODE</div>
+        <div className="text-violet-400">BUILDING / 002</div>
+      </div>
+
+      {/* Corner coordinates */}
+      <div className="absolute left-[8%] top-[8%] h-3 w-3 border-l border-t border-cyan-400/40" />
+      <div className="absolute right-[8%] top-[8%] h-3 w-3 border-r border-t border-cyan-400/40" />
+      <div className="absolute bottom-[8%] left-[8%] h-3 w-3 border-b border-l border-violet-400/40" />
+      <div className="absolute bottom-[8%] right-[8%] h-3 w-3 border-b border-r border-violet-400/40" />
     </div>
   );
 }
-
-/* =========================================================
-   HERO
-========================================================= */
 
 export default function Hero() {
   const [booted, setBooted] = useState(false);
-  const [roleIndex, setRoleIndex] = useState(0);
-  const [typedRole, setTypedRole] = useState("");
-  const [systemGlitch, setSystemGlitch] = useState(false);
-
-  /* =======================================================
-     BOOT
-  ======================================================= */
 
   useEffect(() => {
-    const timer = setTimeout(() => {
+    const timer = window.setTimeout(() => {
       setBooted(true);
     }, 1500);
 
-    return () => clearTimeout(timer);
+    return () => window.clearTimeout(timer);
   }, []);
 
-  /* =======================================================
-     ROLE TYPING
-  ======================================================= */
-
-  useEffect(() => {
-    if (!booted) return;
-
-    const currentRole = roles[roleIndex];
-
-    let index = 0;
-
-    setTypedRole("");
-
-    const interval = setInterval(() => {
-      if (index < currentRole.length) {
-        setTypedRole(currentRole.slice(0, index + 1));
-
-        index++;
-      } else {
-        clearInterval(interval);
-
-        setTimeout(() => {
-          setRoleIndex((prev) => (prev + 1) % roles.length);
-        }, 1800);
-      }
-    }, 55);
-
-    return () => clearInterval(interval);
-  }, [booted, roleIndex]);
-
-  /* =======================================================
-     SYSTEM GLITCH
-  ======================================================= */
-
-  useEffect(() => {
-    if (!booted) return;
-
-    let timeout;
-
-    const triggerGlitch = () => {
-      setSystemGlitch(true);
-
-      timeout = setTimeout(() => {
-        setSystemGlitch(false);
-      }, 650);
-    };
-
-    const schedule = () => {
-      const next = Math.random() * 7000 + 6000;
-
-      timeout = setTimeout(() => {
-        triggerGlitch();
-        schedule();
-      }, next);
-    };
-
-    schedule();
-
-    return () => {
-      clearTimeout(timeout);
-    };
-  }, [booted]);
-
-  /* =======================================================
-     SCROLL
-  ======================================================= */
-
   const scrollTo = (id) => {
-    const element = document.getElementById(id);
-
-    if (element) {
-      element.scrollIntoView({
-        behavior: "smooth",
-      });
-    }
+    document.getElementById(id)?.scrollIntoView({
+      behavior: "smooth",
+    });
   };
 
   return (
@@ -731,53 +232,38 @@ export default function Hero() {
       id="hero"
       className="relative min-h-screen overflow-hidden bg-[#050505] text-white"
     >
-      {/* SYSTEM GLITCH */}
-
-      <SystemGlitch glitch={systemGlitch} />
-
-      {/* =================================================
-          BOOT SCREEN
-      ================================================= */}
-
+      {/* INITIAL LOADING SCREEN */}
       <AnimatePresence>
         {!booted && (
           <motion.div
-            initial={{
-              opacity: 1,
-            }}
+            initial={{ opacity: 1 }}
             exit={{
               opacity: 0,
-              scale: 1.05,
-              filter: "blur(10px)",
+              scale: 1.02,
+              filter: "blur(8px)",
             }}
-            transition={{
-              duration: 0.7,
-            }}
-            className="fixed inset-0 z-[100] bg-[#050505] flex items-center justify-center"
+            transition={{ duration: 0.55 }}
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-[#050505]"
           >
-            <div className="w-[280px]">
-              <div className="flex items-center justify-between mb-3 text-[9px] tracking-[0.3em] text-neutral-400">
+            <div className="w-[280px] max-w-[80vw]">
+              <div className="mb-3 flex items-center justify-between font-mono text-[9px] tracking-[0.3em] text-neutral-400">
                 <span>INITIALIZING WORKSPACE</span>
                 <span>01</span>
               </div>
 
-              <div className="h-[2px] bg-white/10 overflow-hidden">
+              <div className="h-[2px] overflow-hidden bg-white/10">
                 <motion.div
-                  initial={{
-                    width: "0%",
-                  }}
-                  animate={{
-                    width: "100%",
-                  }}
+                  initial={{ width: "0%" }}
+                  animate={{ width: "100%" }}
                   transition={{
-                    duration: 1.2,
+                    duration: 1.25,
                     ease: "easeInOut",
                   }}
-                  className="h-full bg-white"
+                  className="h-full bg-cyan-400"
                 />
               </div>
 
-              <div className="mt-4 text-[8px] tracking-[0.25em] text-neutral-500">
+              <div className="mt-4 font-mono text-[8px] tracking-[0.25em] text-neutral-500">
                 LOADING PRATIKSHA.SYSTEM...
               </div>
             </div>
@@ -785,350 +271,259 @@ export default function Hero() {
         )}
       </AnimatePresence>
 
-      <Background />
+      {/* Background system */}
+      <div className="pointer-events-none absolute inset-0">
+        <div
+          className="absolute inset-0 opacity-[0.04]"
+          style={{
+            backgroundImage: `
+              linear-gradient(rgba(255,255,255,0.6) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(255,255,255,0.6) 1px, transparent 1px)
+            `,
+            backgroundSize: "70px 70px",
+          }}
+        />
 
-      {/* Global Navbar comes from Home.jsx */}
+        <div className="absolute -left-[15%] top-[10%] h-[500px] w-[500px] rounded-full bg-cyan-500/[0.035] blur-[150px]" />
 
-      <FallingIdentity />
+        <div className="absolute -right-[10%] bottom-0 h-[500px] w-[500px] rounded-full bg-violet-500/[0.04] blur-[150px]" />
 
-      {/* =================================================
-          MAIN HERO
-      ================================================= */}
+        <div
+          className="absolute inset-0 opacity-[0.025]"
+          style={{
+            backgroundImage:
+              "repeating-linear-gradient(to bottom, transparent 0px, transparent 3px, rgba(255,255,255,0.7) 4px)",
+          }}
+        />
+      </div>
 
-      <div className="relative z-10 min-h-screen px-6 md:px-10 lg:px-16 flex items-center pt-24 pb-24">
-        <div className="w-full max-w-[1500px] mx-auto grid lg:grid-cols-[1.15fr_0.85fr] gap-16 items-center">
-          {/* =================================================
-              LEFT
-          ================================================= */}
+      {/* Main content */}
+      <div className="relative z-10 mx-auto flex min-h-screen max-w-[1500px] flex-col justify-center px-5 pb-24 pt-32 sm:px-8 lg:px-12">
+        {/* Intro label */}
+        <motion.div
+          variants={fadeUp}
+          initial="hidden"
+          animate={booted ? "visible" : "hidden"}
+          transition={{ duration: 0.7 }}
+          className="mb-10 flex flex-wrap items-center gap-3 font-mono text-[9px] tracking-[0.25em] text-neutral-400 sm:text-xs"
+        >
+          <span className="h-px w-8 bg-cyan-400/70" />
+          <span>PRATIKSHA KADAM</span>
+          <span className="text-neutral-600">/</span>
+          <span>DIGITAL WORKSPACE</span>
 
-          <div className="relative">
-            {/* System label */}
+          <span className="ml-1 flex items-center gap-2 text-emerald-400">
+            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" />
+            OPEN TO INTERNSHIPS
+          </span>
+        </motion.div>
 
+        {/* Main hero grid */}
+        <div className="grid items-center gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:gap-6">
+          {/* Left side */}
+          <motion.div
+            variants={container}
+            initial="hidden"
+            animate={booted ? "visible" : "hidden"}
+            className="relative z-20"
+          >
             <motion.div
-              initial={{
-                opacity: 0,
-                y: 20,
-              }}
-              animate={{
-                opacity: booted ? 1 : 0,
-                y: booted ? 0 : 20,
-              }}
-              transition={{
-                duration: 0.6,
-                delay: 1.1,
-              }}
-              className="flex items-center gap-3 mb-8"
+              variants={fadeUp}
+              transition={{ duration: 0.8 }}
+              className="mb-5 flex items-center gap-3 font-mono text-[10px] tracking-[0.18em] text-cyan-400 sm:text-xs sm:tracking-[0.25em]"
             >
-              <div className="w-8 h-px bg-violet-500" />
-
-              <span className="text-[9px] tracking-[0.4em] text-neutral-500">
-                SYSTEM / 001
-              </span>
-
-              <span className="text-[9px] tracking-[0.3em] text-emerald-400">
-                ONLINE
-              </span>
+              <Sparkles size={14} />
+              SOFTWARE ENGINEERING / WEB / AI
             </motion.div>
 
-            {/* NAME */}
-
-            <div className="relative">
-              <motion.h1
-                initial={{
-                  y: 140,
-                  opacity: 0,
-                  filter: "blur(14px)",
-                }}
-                animate={{
-                  y: booted ? 0 : 140,
-                  opacity: booted ? 1 : 0,
-                  filter: booted ? "blur(0px)" : "blur(14px)",
-                }}
-                transition={{
-                  duration: 1,
-                  delay: 0.8,
-                  type: "spring",
-                  stiffness: 70,
-                }}
-                className="text-[15vw] lg:text-[9.5vw] xl:text-[8.5rem] leading-[0.78] font-black tracking-[-0.08em] text-white"
-              >
-                PRATIKSHA
-              </motion.h1>
-
-              <motion.h1
-                initial={{
-                  y: 140,
-                  opacity: 0,
-                  filter: "blur(14px)",
-                }}
-                animate={{
-                  y: booted ? 0 : 140,
-                  opacity: booted ? 1 : 0,
-                  filter: booted ? "blur(0px)" : "blur(14px)",
-                }}
-                transition={{
-                  duration: 1,
-                  delay: 0.95,
-                  type: "spring",
-                  stiffness: 70,
-                }}
-                className="text-[15vw] lg:text-[9.5vw] xl:text-[8.5rem] leading-[0.85] font-black tracking-[-0.08em] text-white/10"
-              >
-                KADAM
-              </motion.h1>
-            </div>
-
-            {/* ROLE */}
-
-            <motion.div
-              initial={{
-                opacity: 0,
-                y: 20,
-              }}
-              animate={{
-                opacity: booted ? 1 : 0,
-                y: booted ? 0 : 20,
-              }}
-              transition={{
-                duration: 0.6,
-                delay: 1.35,
-              }}
-              className="mt-10 flex items-center gap-3"
+            {/* Name */}
+            <motion.h1
+              variants={fadeUp}
+              transition={{ duration: 0.9 }}
+              className="text-[17vw] font-black leading-[0.78] tracking-[-0.09em] sm:text-[13vw] lg:text-[8.5vw] xl:text-[8.2rem]"
             >
-              <span className="text-violet-400 font-mono text-sm">&gt;_</span>
-
-              <span className="text-xl md:text-2xl tracking-[0.12em] font-medium text-white">
-                {typedRole}
+              <span className="block text-white">PRATIKSHA</span>
+              <span className="mt-3 block text-white/[0.13]">
+                KADAM<span className="text-cyan-400">.</span>
               </span>
+            </motion.h1>
 
-              <span className="w-[2px] h-6 bg-violet-400 animate-pulse" />
+            {/* Role and description */}
+            <motion.div
+              variants={fadeUp}
+              transition={{ duration: 0.8 }}
+              className="mt-9"
+            >
+              <div className="flex flex-wrap items-center gap-3">
+                <span className="font-mono text-sm text-cyan-400">&gt;_</span>
+                <h2 className="text-sm font-semibold tracking-[0.1em] text-white sm:text-lg sm:tracking-[0.13em]">
+                  FULL STACK DEVELOPER
+                </h2>
+              </div>
+
+              <p className="mt-5 max-w-xl text-sm leading-7 text-neutral-300 sm:text-base">
+                I create modern web experiences and build the systems behind
+                them. Focused on full stack development, thoughtful interfaces,
+                and integrating AI into practical applications.
+              </p>
             </motion.div>
 
-            {/* DESCRIPTION */}
-
-            <motion.p
-              initial={{
-                opacity: 0,
-                y: 20,
-              }}
-              animate={{
-                opacity: booted ? 1 : 0,
-                y: booted ? 0 : 20,
-              }}
-              transition={{
-                duration: 0.6,
-                delay: 1.55,
-              }}
-              className="mt-7 max-w-[650px] text-sm md:text-base leading-7 text-neutral-300"
-            >
-              I build modern full-stack web applications with React, Node.js and
-              Python — while exploring the intersection of software engineering
-              and AI.
-            </motion.p>
-
-            {/* STACK */}
-
+            {/* Technical details */}
             <motion.div
-              initial={{
-                opacity: 0,
-              }}
-              animate={{
-                opacity: booted ? 1 : 0,
-              }}
-              transition={{
-                duration: 0.8,
-                delay: 1.8,
-              }}
-              className="mt-7 flex flex-wrap gap-2 max-w-[700px]"
+              variants={fadeUp}
+              transition={{ duration: 0.8 }}
+              className="mt-8 grid max-w-xl grid-cols-2 border border-white/10 sm:grid-cols-3"
             >
-              {stack.map((item, index) => (
-                <motion.span
-                  key={item}
-                  initial={{
-                    opacity: 0,
-                    y: 20,
-                  }}
-                  animate={{
-                    opacity: 1,
-                    y: 0,
-                  }}
-                  transition={{
-                    delay: 1.8 + index * 0.05,
-                  }}
-                  className="px-3 py-1.5 border border-white/10 bg-white/[0.025] text-[9px] tracking-[0.15em] text-neutral-300 hover:text-white hover:border-white/25 transition"
-                >
-                  {item}
-                </motion.span>
-              ))}
+              <div className="border-b border-r border-white/10 p-4 sm:border-b-0">
+                <div className="mb-3 font-mono text-[8px] tracking-[0.18em] text-neutral-500">
+                  EDUCATION
+                </div>
+                <div className="text-xs font-medium text-white">MCA</div>
+                <div className="mt-1 font-mono text-[9px] text-neutral-400">
+                  2025 — 2027
+                </div>
+              </div>
+
+              <div className="border-b border-white/10 p-4 sm:border-b-0 sm:border-r">
+                <div className="mb-3 font-mono text-[8px] tracking-[0.18em] text-neutral-500">
+                  LOCATION
+                </div>
+                <div className="text-xs font-medium text-white">Bengaluru</div>
+                <div className="mt-1 font-mono text-[9px] text-neutral-400">
+                  India
+                </div>
+              </div>
+
+              <div className="col-span-2 p-4 sm:col-span-1">
+                <div className="mb-3 font-mono text-[8px] tracking-[0.18em] text-neutral-500">
+                  CURRENT FOCUS
+                </div>
+                <div className="text-xs font-medium text-white">
+                  Full Stack + AI
+                </div>
+                <div className="mt-1 font-mono text-[9px] text-neutral-400">
+                  Product Engineering
+                </div>
+              </div>
             </motion.div>
 
-            {/* BUTTONS */}
-
+            {/* CTA buttons */}
             <motion.div
-              initial={{
-                opacity: 0,
-                y: 20,
-              }}
-              animate={{
-                opacity: booted ? 1 : 0,
-                y: booted ? 0 : 20,
-              }}
-              transition={{
-                duration: 0.7,
-                delay: 2,
-              }}
-              className="flex flex-wrap items-center gap-3 mt-10"
+              variants={fadeUp}
+              transition={{ duration: 0.8 }}
+              className="mt-8 flex flex-wrap gap-3"
             >
               <button
                 onClick={() => scrollTo("projects")}
-                className="group flex items-center gap-3 px-6 py-3.5 bg-white text-black text-[10px] font-bold tracking-[0.2em] hover:bg-violet-400 transition"
+                className="group flex items-center gap-3 bg-white px-5 py-4 font-mono text-[10px] font-bold tracking-[0.12em] text-black transition hover:bg-cyan-400 sm:px-6 sm:tracking-[0.16em]"
               >
-                VIEW PROJECTS
-                <ArrowUpRight className="w-4 h-4 group-hover:rotate-45 transition" />
+                VIEW SELECTED WORK
+                <ArrowUpRight
+                  size={15}
+                  className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-1"
+                />
               </button>
 
               <a
                 href="/resume.pdf"
                 target="_blank"
                 rel="noreferrer"
-                className="flex items-center gap-3 px-6 py-3.5 border border-white/15 text-neutral-300 text-[10px] font-bold tracking-[0.2em] hover:bg-white/5 hover:text-white transition"
+                className="flex items-center gap-3 border border-white/15 px-5 py-4 font-mono text-[10px] tracking-[0.12em] text-neutral-300 transition hover:border-cyan-400/40 hover:text-white sm:px-6 sm:tracking-[0.16em]"
               >
-                RESUME
-                <ExternalLink className="w-3.5 h-3.5" />
-              </a>
-
-              <a
-                href="https://github.com/pratikshakadam912"
-                target="_blank"
-                rel="noreferrer"
-                aria-label="GitHub"
-                className="flex items-center gap-3 px-4 py-3.5 border border-white/10 text-neutral-300 hover:text-white hover:border-white/25 transition"
-              >
-                <Code2 className="w-4 h-4" />
+                TECHNICAL RESUME
+                <ArrowUpRight size={14} />
               </a>
             </motion.div>
+          </motion.div>
 
-            {/* META */}
+          {/* Right side identity visual */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.92, x: 30 }}
+            animate={
+              booted
+                ? { opacity: 1, scale: 1, x: 0 }
+                : { opacity: 0, scale: 0.92, x: 30 }
+            }
+            transition={{
+              duration: 1.1,
+              delay: 0.2,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+            className="relative"
+          >
+            <IdentityVisual booted={booted} />
 
-            <motion.div
-              initial={{
-                opacity: 0,
-              }}
-              animate={{
-                opacity: booted ? 1 : 0,
-              }}
-              transition={{
-                duration: 0.8,
-                delay: 2.2,
-              }}
-              className="mt-12 flex flex-wrap gap-8 text-[9px] tracking-[0.25em] text-neutral-400"
-            >
-              <div className="flex items-center gap-2">
-                <GraduationCap className="w-3.5 h-3.5" />
-                MCA · 2025 — 2027
-              </div>
-
-              <div className="flex items-center gap-2">
-                <Zap className="w-3.5 h-3.5" />
-                OPEN TO OPPORTUNITIES
-              </div>
-            </motion.div>
-          </div>
-
-          {/* =================================================
-              RIGHT
-          ================================================= */}
-
-          <div className="flex justify-center lg:justify-end">
-            <div className="w-full max-w-[520px]">
-              <TerminalWindow />
-
-              {/* System status */}
-
-              <motion.div
-                initial={{
-                  opacity: 0,
-                  y: 30,
-                }}
-                animate={{
-                  opacity: booted ? 1 : 0,
-                  y: booted ? 0 : 30,
-                }}
-                transition={{
-                  duration: 0.8,
-                  delay: 1.6,
-                }}
-                className="mt-4 grid grid-cols-3 border border-white/10 bg-white/[0.015]"
-              >
-                <div className="p-4 border-r border-white/10">
-                  <div className="text-[8px] tracking-[0.25em] text-neutral-500">
-                    BUILD
-                  </div>
-
-                  <div className="mt-2 text-xs text-neutral-300">
-                    FULL STACK
-                  </div>
-                </div>
-
-                <div className="p-4 border-r border-white/10">
-                  <div className="text-[8px] tracking-[0.25em] text-neutral-500">
-                    FOCUS
-                  </div>
-
-                  <div className="mt-2 text-xs text-neutral-300">WEB + AI</div>
-                </div>
-
-                <div className="p-4">
-                  <div className="text-[8px] tracking-[0.25em] text-neutral-500">
-                    STATUS
-                  </div>
-
-                  <div className="mt-2 flex items-center gap-2 text-xs text-cyan-400">
-                    <Check className="w-3 h-3" />
-                    ONLINE
-                  </div>
-                </div>
-              </motion.div>
+            <div className="mx-auto mt-2 flex max-w-[540px] items-center justify-between border-t border-white/10 pt-4 font-mono text-[8px] tracking-[0.12em] text-neutral-500 sm:text-[9px] sm:tracking-[0.16em]">
+              <span className="flex items-center gap-2">
+                <Terminal size={12} className="text-cyan-400" />
+                DEVELOPER_IDENTITY
+              </span>
+              <span className="text-violet-400">SYSTEM / 2026</span>
             </div>
-          </div>
+          </motion.div>
         </div>
+
+        {/* Expertise strip */}
+        <motion.div
+          initial={{ opacity: 0, y: 25 }}
+          animate={booted ? { opacity: 1, y: 0 } : { opacity: 0, y: 25 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="mt-12 grid border-y border-white/10 md:mt-16 md:grid-cols-3"
+        >
+          {expertise.map((item, index) => {
+            const Icon = item.icon;
+
+            return (
+              <div
+                key={item.number}
+                className={`group relative p-5 transition hover:bg-white/[0.02] sm:p-6 ${
+                  index !== 2
+                    ? "border-b border-white/10 md:border-b-0 md:border-r"
+                    : ""
+                }`}
+              >
+                <div className="mb-5 flex items-center justify-between">
+                  <span className="font-mono text-[9px] tracking-[0.2em] text-neutral-500">
+                    {item.number} / EXPERTISE
+                  </span>
+                  <Icon
+                    size={16}
+                    className="text-neutral-500 transition group-hover:text-cyan-400"
+                  />
+                </div>
+
+                <h3 className="text-sm font-semibold tracking-[0.12em] text-white">
+                  {item.title}
+                </h3>
+
+                <p className="mt-3 max-w-xs text-xs leading-6 text-neutral-400">
+                  {item.description}
+                </p>
+              </div>
+            );
+          })}
+        </motion.div>
       </div>
 
-      {/* =================================================
-          BOTTOM
-      ================================================= */}
-
-      <motion.div
-        initial={{
-          opacity: 0,
-        }}
-        animate={{
-          opacity: booted ? 1 : 0,
-        }}
-        transition={{
-          duration: 1,
-          delay: 2.5,
-        }}
-        className="absolute bottom-7 left-6 right-6 md:left-10 md:right-10 lg:left-16 lg:right-16 z-20 flex items-end justify-between"
-      >
-        <div className="hidden md:block text-[8px] tracking-[0.3em] text-neutral-500">
-          PRATIKSHA.KADAM / 2026
-        </div>
+      {/* Bottom navigation */}
+      <div className="absolute bottom-5 left-5 right-5 z-20 flex items-center justify-between font-mono text-[8px] tracking-[0.2em] text-neutral-500 sm:left-8 sm:right-8 lg:left-12 lg:right-12">
+        <span className="hidden sm:block">PK / PORTFOLIO</span>
 
         <button
           onClick={() => scrollTo("projects")}
-          className="group flex items-center gap-3 text-[9px] tracking-[0.3em] text-neutral-400 hover:text-white transition"
+          className="group flex items-center gap-3 transition hover:text-white"
         >
           SCROLL TO EXPLORE
-          <span className="w-8 h-8 border border-white/10 flex items-center justify-center group-hover:border-white/30 transition">
-            <ArrowDown className="w-3.5 h-3.5 group-hover:translate-y-1 transition" />
+          <span className="flex h-8 w-8 items-center justify-center border border-white/10 transition group-hover:border-cyan-400/40 group-hover:text-cyan-400">
+            <ArrowDown
+              size={13}
+              className="transition-transform group-hover:translate-y-1"
+            />
           </span>
         </button>
 
-        <div className="hidden md:block text-[8px] tracking-[0.25em] text-neutral-500">
-          01 / 05
-        </div>
-      </motion.div>
+        <span className="hidden sm:block">01 / 05</span>
+      </div>
     </section>
   );
 }
