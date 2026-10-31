@@ -423,16 +423,6 @@ export default function Hero() {
                   className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-1"
                 />
               </button>
-
-              <a
-                href="/resume.pdf"
-                target="_blank"
-                rel="noreferrer"
-                className="flex items-center gap-3 border border-white/15 px-5 py-4 font-mono text-[10px] tracking-[0.12em] text-neutral-300 transition hover:border-cyan-400/40 hover:text-white sm:px-6 sm:tracking-[0.16em]"
-              >
-                TECHNICAL RESUME
-                <ArrowUpRight size={14} />
-              </a>
             </motion.div>
           </motion.div>
 
